@@ -5,11 +5,18 @@
 using std::string;
 using std::stringstream;
 
+Node::Node(){
+}
+
 Node::Node(int val){
-	value = val;
-	parent = NULL;
-	leftSon = NULL;
-	rightSon = NULL;
+	this -> value = val;
+	this -> level = 0;//camino desde la raiz a nodo actual
+	this -> parent = NULL;
+	this -> leftSon = NULL;
+	this -> rightSon = NULL;
+}
+
+Node::~Node(){
 }
 
 string Node::toString()const{
@@ -20,6 +27,10 @@ string Node::toString()const{
 
 int Node::getValue(){
 	return value;
+}
+
+int Node::getLevel(){
+	return level;
 }
 
 Node Node::getLeftSon(){
@@ -48,6 +59,18 @@ void Node::setRightSon(Node* nodo){
 
 void Node::setValue(int valor){
 	value = valor;
+}
+
+void Node::setLevel(int lev){
+	level = lev;
+}
+
+bool Node::Equals(Node Nodo1, Node Nodo2){
+	if ((Nodo1.getValue() == Nodo2.getValue()) && (&Nodo1 == &Nodo2)){
+		return true;
+	}
+
+	return false;
 }
 
 bool Node::hasParent(){
