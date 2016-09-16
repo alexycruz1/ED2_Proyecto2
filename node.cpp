@@ -5,12 +5,18 @@
 using std::string;
 using std::stringstream;
 
+Node::Node(){
+}
+
 Node::Node(int val){
-	value = val;
-	level = 0;//camino desde la raiz a nodo actual
-	parent = NULL;
-	leftSon = NULL;
-	rightSon = NULL;
+	this -> value = val;
+	this -> level = 0;//camino desde la raiz a nodo actual
+	this -> parent = NULL;
+	this -> leftSon = NULL;
+	this -> rightSon = NULL;
+}
+
+Node::~Node(){
 }
 
 string Node::toString()const{

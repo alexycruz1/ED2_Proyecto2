@@ -11,19 +11,23 @@ using std::endl;
 using std::string;
 using std::stringstream;
 
+AVLTree::AVLTree(){
+	this -> Raiz = new Node();
+}
+
 AVLTree::AVLTree(int Valor){
-	
-	Node Raiz(Valor);
+	this -> Raiz = new Node(Valor);
+}
+
+AVLTree::~AVLTree(){
 }
 
 Node AVLTree::getRoot(){
-	Node nodo(3);
-	cout << Raiz.toString() << endl;
-	return nodo;
+	return *Raiz;
 }
 
-/*void AVLTree::SetRoot(Node* Nodo){
-	Root = Nodo;
+void AVLTree::SetRoot(Node* Nodo){
+	this -> Raiz = Nodo;
 }
 
 
@@ -31,24 +35,34 @@ void AVLTree::AddNode(Node* Nodo, Node* Raiz){
 	if(Raiz == NULL){
 		Raiz = Nodo;
 	}else{
-		if (Nodo.getValue() <= Raiz.getValue()){
-			if(Raiz.getLeftSon() == NULL){
-				Raiz.setLeftSon(&Nodo);
+		if ((*Nodo).getValue() <= (*Raiz).getValue()){
+
+			if(!(*Raiz).hasLeftSon()){
+				(*Raiz).setLeftSon(Nodo);
 			}else{
-				AddNode(Nodo, Raiz.getLeftSon());
+				Node RaizTemporal = (*Raiz).getLeftSon();
+				Raiz = &RaizTemporal;
+				AddNode(Nodo, Raiz);
 			}
 		}else{
-			if(Raiz.getRightSon() == NULL){
-				Raiz.setRightSon(&Nodo);
+			if(!(*Raiz).hasRightSon()){
+				(*Raiz).setRightSon(Nodo);
 			}else{
-				AddNode(Nodo, Raiz.getRightSon());
+				Node RaizTemporal = (*Raiz).getRightSon();
+				Raiz = &RaizTemporal;
+				AddNode(Nodo, Raiz);
 			}
 		}
 	}
 }
-*/
-string AVLTree::toString()const{
+
+void AVLTree::DeleteNode(Node* Nodo){
+
+}
+
+/*string AVLTree::toString()const{
 	stringstream ss;
-	ss << Node.getValue();
+	ss << Raiz.getValue();
 	return ss.str();	
 }
+*/

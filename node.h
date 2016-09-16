@@ -10,7 +10,9 @@ class Node{
 	Node* rightSon;
 	Node* parent;
 	public:
-		Node(int);
+		Node();
+		Node(int value);
+		~Node();
 		string toString()const;
 		int getValue();
 		int getLevel();
