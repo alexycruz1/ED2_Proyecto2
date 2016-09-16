@@ -13,21 +13,24 @@ treeNode::treeNode(int val){
 	value = val;
 	leftBro = NULL;
 	rightBro = NULL;
+	parentList = NULL;
+	rightSon = NULL;
+	leftSon = NULL;
 }
 
-vector<treeNode> treeNode::getLeftSon(){
+treeNode* treeNode::getLeftSon(){
 	return leftSon;
 }
 	
-vector<treeNode> treeNode::getRightSon(){
+treeNode* treeNode::getRightSon(){
 	return rightSon;
 }
 
-void treeNode::setLeftSon(vector<treeNode> referencia){
+void treeNode::setLeftSon(treeNode* referencia){
 	leftSon = referencia;
 }
 
-void treeNode::setRightSon(vector<treeNode> referencia){
+void treeNode::setRightSon(treeNode* referencia){
 	rightSon = referencia;
 }
 
@@ -40,14 +43,14 @@ int treeNode::setValue(int val){
 }
 
 bool treeNode::hasRightSon(){
-	if(rightSon.size() == 0){
+	if(rightSon ==  NULL){
 		return false;
 	}
 	return true;
 }
 
 bool treeNode::hasLeftSon(){
-	if(leftSon.size() == 0){
+	if(leftSon == NULL){
 		return false;
 	}
 	return true;
@@ -68,7 +71,7 @@ bool treeNode::hasLeftBro(){
 }
 
 bool treeNode::hasParentList(){
-	if(parentList.size() == 0){
+	if(parentList == NULL){
 		return false;
 	}
 	return true;
@@ -82,7 +85,7 @@ treeNode* treeNode::getLeftBro(){
 	return leftBro;
 }
 
-vector<treeNode> treeNode::getParentList(){
+treeNode* treeNode::getParentList(){
 	return parentList;
 }
 
@@ -94,7 +97,7 @@ void treeNode::setLeftBro(treeNode* referencia){
 	leftBro = referencia;
 }
 
-void treeNode::setParentList(vector<treeNode> referencia){
+void treeNode::setParentList(treeNode*  referencia){
 	parentList = referencia;
 }
 

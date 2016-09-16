@@ -16,13 +16,19 @@ int main(int argc, char*argv[]){
 	while(seguir){
 		cout<<"Ingrese un numero: " << endl;
 		cin >> num;
-		arbol.insert(num);
+		arbol.insert(num, arbol.getRoot());
 		cout<< "Desea continuar: ";
 		cin >> dec;
 		
 		dec == 1? seguir = true:seguir = false;	
 	}
 	
-	cout << arbol.toString() << endl;
+	if(arbol.getRoot()->hasLeftSon()){
+		cout<< "tiene hijo"<< endl;
+	}
+	if(arbol.getRoot()->hasRightSon()){
+		cout << "tieene otro hijo" << endl;
+	}	
+	cout << arbol.toString(arbol.getRoot()) << endl;
 	return 0;
 }

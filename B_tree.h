@@ -7,12 +7,15 @@ using std::vector;
 using std::string;
 
 class btree{
-	vector<treeNode> root;
+	treeNode* root;
 	int size;
 
   public:
 	btree();
 	btree(int);
-	void insert(int);
-	string toString();
+	void insert(int, treeNode*);
+	string toString(treeNode*);
+	treeNode* getRoot();
+	void locate(treeNode, treeNode*, int);
+	bool hasChildren(treeNode*);
 };
