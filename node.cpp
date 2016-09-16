@@ -7,6 +7,7 @@ using std::stringstream;
 
 Node::Node(int val){
 	value = val;
+	level = 0;//camino desde la raiz a nodo actual
 	parent = NULL;
 	leftSon = NULL;
 	rightSon = NULL;
@@ -20,6 +21,10 @@ string Node::toString()const{
 
 int Node::getValue(){
 	return value;
+}
+
+int Node::getLevel(){
+	return level;
 }
 
 Node Node::getLeftSon(){
@@ -48,6 +53,10 @@ void Node::setRightSon(Node* nodo){
 
 void Node::setValue(int valor){
 	value = valor;
+}
+
+void Node::setLevel(int lev){
+	level = lev;
 }
 
 bool Node::hasParent(){
