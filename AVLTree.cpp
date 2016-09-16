@@ -6,15 +6,15 @@
 using std::string;
 using std::stringstream;
 
-AVLTree::AVLTree(Node R){
-	Root = R;
+AVLTree::AVLTree(int valor){
+	Node Raiz(valor);
 }
 
 Node AVLTree::getRoot(){
-	return Root;
+	return Raiz;
 }
 
-void AVLTree::SetRoot(Node* Nodo){
+/*void AVLTree::SetRoot(Node* Nodo){
 	Root = Nodo;
 }
 
@@ -43,4 +43,4 @@ string AVLTree::toString()const{
 	stringstream ss;
 	ss << Node.getValue();
 	return ss.str();	
-}
+}*/

@@ -4,13 +4,13 @@
 
 using std::string;
 
-class AVLTree : public Node{
-	Node Root;
+class AVLTree{
 	int Valor;
+	Node Raiz(int);
 	public:
-		AVLTree(Node);
+		AVLTree(int);
 		Node getRoot();
-		void SetRoot(Node*);
+		/*void SetRoot(Node*);
 		void AddNode(Node*, Node*);
-		string toString()const;
+		string toString()const;*/
 };
