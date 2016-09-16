@@ -24,6 +24,7 @@ class Node{
 		void setRightSon(Node*);
 		void setValue(int);
 		void setLevel(int);
+		bool Equals(Node, Node);
 		bool hasParent();
 		bool hasRightSon();
 		bool hasLeftSon();

@@ -57,7 +57,27 @@ void AVLTree::AddNode(Node* Nodo, Node* Raiz){
 }
 
 void AVLTree::DeleteNode(Node* Nodo){
+	Node NodoEliminar = *Nodo;
+	bool TieneHijoIzquierdo = NodoEliminar.hasLeftSon();
+	bool TieneHijoDerecho = NodoEliminar.hasRightSon();
 
+	if (TieneHijoIzquierdo == false && TieneHijoIzquierdo == false){
+		//cuando solo se elimina un nodo que no tiene hijos (caso 1).
+		Node HijoIzquierdo = NodoEliminar.getParent().getLeftSon();
+		Node HijoDerecho = NodoEliminar.getParent().getRightSon();
+
+		if (NodoEliminar.Equals(NodoEliminar, HijoIzquierdo)){
+			NodoEliminar.getParent().setLeftSon(NULL);
+		}else{
+			NodoEliminar.getParent().setRightSon(NULL);
+		}
+	}else if (TieneHijoIzquierdo && TieneHijoDerecho == false){
+		//cuando se elimina un nodo que tiene hijo izquierdo pero no derecho (caso 2).
+	}else if(TieneHijoIzquierdo == false && TieneHijoDerecho){
+		//cuando se elimina un nodo que tiene hijo izquierdo pero no derecho (caso 2).
+	}else if(TieneHijoIzquierdo && TieneHijoDerecho){
+		//cuando se elimina un nodo que tiene ambos hijos.
+	}
 }
 
 /*string AVLTree::toString()const{

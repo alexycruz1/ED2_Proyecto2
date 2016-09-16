@@ -65,6 +65,14 @@ void Node::setLevel(int lev){
 	level = lev;
 }
 
+bool Node::Equals(Node Nodo1, Node Nodo2){
+	if ((Nodo1.getValue() == Nodo2.getValue()) && (&Nodo1 == &Nodo2)){
+		return true;
+	}
+
+	return false;
+}
+
 bool Node::hasParent(){
 	if(parent!=NULL){
 		return true;		
