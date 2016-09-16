@@ -2,12 +2,14 @@
 #include "node.h"
 #include "B_tree.h"
 #include "treeNode.h"
+#include "AVLTree.h"
 
 using std::cout;
 using std::cin;
 using std::endl;
 
 int main(int argc, char*argv[]){
+	AVLTree Arbolito(3);
 	btree arbol(3);	
 	bool seguir = true;
 	int num = 0;
@@ -24,5 +26,8 @@ int main(int argc, char*argv[]){
 	}
 	
 	cout << arbol.toString() << endl;
+
+	Arbolito.getRoot();
+
 	return 0;
 }

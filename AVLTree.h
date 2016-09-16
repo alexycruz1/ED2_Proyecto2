@@ -5,11 +5,11 @@
 using std::string;
 
 class AVLTree{
-	int Valor;
+	int Valor;//es para el nodo
 	Node Raiz(int);
 	public:
 		AVLTree(int);
-		Node getRoot();
+		Node getRoot();//no
 		/*void SetRoot(Node*);
 		void AddNode(Node*, Node*);
 		string toString()const;*/

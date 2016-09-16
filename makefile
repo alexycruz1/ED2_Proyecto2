@@ -1,5 +1,5 @@
-tree:  B_tree.o treeNode.o main.o node.o AVLTree.o
-	g++  main.o node.o B_tree.o treeNode.o AVLTree.o -o tree
+tree:  B_tree.o treeNode.o node.o AVLTree.o main.o
+	g++ B_tree.o treeNode.o node.o AVLTree.o main.o -o tree
 
 main.o: main.cpp node.h treeNode.h B_tree.h AVLTree.h
 	g++ -c main.cpp
