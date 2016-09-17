@@ -31,32 +31,43 @@ void AVLTree::SetRoot(Node* Nodo){
 }
 
 
-void AVLTree::AddNode(Node* Nodo, Node* Raiz){
-	if(Raiz == NULL){
-		Raiz = Nodo;
-	}else{
-		if ((*Nodo).getValue() <= (*Raiz).getValue()){
+void AVLTree::AddNode(int ValorInsertar){
+	Node* Nodo = new Node(ValorInsertar);
+	Node* RaizTemporal = Raiz;
+	int Seguir = 1;
 
-			if(!(*Raiz).hasLeftSon()){
-				(*Raiz).setLeftSon(Nodo);
+	while(Seguir == 1){
+		if ((!(*Raiz).hasLeftSon()) && (!(*Raiz).hasRightSon())){
+			if (ValorInsertar > (*Raiz).getValue()){
+				Raiz -> setRightSon(Nodo);
+				Seguir = 0;
 			}else{
-				Node RaizTemporal = (*Raiz).getLeftSon();
-				Raiz = &RaizTemporal;
-				AddNode(Nodo, Raiz);
+				Raiz -> setLeftSon(Nodo);
+				Seguir = 0;
 			}
 		}else{
-			if(!(*Raiz).hasRightSon()){
-				(*Raiz).setRightSon(Nodo);
+			if(ValorInsertar > (*RaizTemporal).getValue()){
+				if ((*RaizTemporal).hasRightSon()){
+					RaizTemporal = RaizTemporal -> getRightSonPointer();
+				}else{
+					RaizTemporal -> setRightSon(Nodo);
+					Nodo -> setParent(RaizTemporal);
+					Seguir = 0;
+				}
 			}else{
-				Node RaizTemporal = (*Raiz).getRightSon();
-				Raiz = &RaizTemporal;
-				AddNode(Nodo, Raiz);
+				if ((*RaizTemporal).hasLeftSon()){
+					RaizTemporal = RaizTemporal -> getLeftSonPointer();
+				}else{
+					RaizTemporal -> setLeftSon(Nodo);
+					Nodo -> setParent(RaizTemporal);
+					Seguir = 0;
+				}
 			}
 		}
 	}
 }
 
-void AVLTree::DeleteNode(Node* Nodo){
+/*void AVLTree::DeleteNode(Node* Nodo){
 	Node NodoEliminar = *Nodo;
 	bool TieneHijoIzquierdo = NodoEliminar.hasLeftSon();
 	bool TieneHijoDerecho = NodoEliminar.hasRightSon();
@@ -66,19 +77,89 @@ void AVLTree::DeleteNode(Node* Nodo){
 		Node HijoIzquierdo = NodoEliminar.getParent().getLeftSon();
 		Node HijoDerecho = NodoEliminar.getParent().getRightSon();
 
+		cout << "esto es eliminar y derecha: " << NodoEliminar.Equals(NodoEliminar, HijoDerecho) << endl;
 		if (NodoEliminar.Equals(NodoEliminar, HijoIzquierdo)){
 			NodoEliminar.getParent().setLeftSon(NULL);
-		}else{
+		}else if(NodoEliminar.Equals(NodoEliminar, HijoDerecho)){
+			cout << "Entre aqui pero no seteo a NULL porque soy inutil" << endl;
+			cout << endl;
 			NodoEliminar.getParent().setRightSon(NULL);
 		}
-	}else if (TieneHijoIzquierdo && TieneHijoDerecho == false){
+	}/*else if (TieneHijoIzquierdo && TieneHijoDerecho == false){
 		//cuando se elimina un nodo que tiene hijo izquierdo pero no derecho (caso 2).
+		Node HijoIzquierdo = NodoEliminar.getParent().getLeftSon();
+		Node HijoDerecho = NodoEliminar.getParent().getRightSon();
+
+		Node HijoDeEliminado = NodoEliminar.getLeftSon();
+		Node* SetearHijoDeEliminado = &HijoDeEliminado;
+
+		if (HijoIzquierdo.Equals(HijoIzquierdo, NodoEliminar)){
+			NodoEliminar.getParent().setLeftSon(SetearHijoDeEliminado);
+			Node SetearPadreTemporal = NodoEliminar.getParent();
+			Node* SetearPadre = &SetearPadreTemporal;
+
+			HijoDeEliminado.setParent(SetearPadre);
+			NodoEliminar.setRightSon(NULL);
+			NodoEliminar.setLeftSon(NULL);
+		}else if(HijoDerecho.Equals(HijoDerecho, NodoEliminar)){
+			NodoEliminar.getParent().setRightSon(SetearHijoDeEliminado);
+			Node SetearPadreTemporal = NodoEliminar.getParent();
+			Node* SetearPadre = &SetearPadreTemporal;
+
+			HijoDeEliminado.setParent(SetearPadre);
+			NodoEliminar.setRightSon(NULL);
+			NodoEliminar.setLeftSon(NULL);
+		}
 	}else if(TieneHijoIzquierdo == false && TieneHijoDerecho){
 		//cuando se elimina un nodo que tiene hijo izquierdo pero no derecho (caso 2).
+		Node HijoIzquierdo = NodoEliminar.getParent().getLeftSon();
+		Node HijoDerecho = NodoEliminar.getParent().getRightSon();
+
+		Node HijoDeEliminado = NodoEliminar.getRightSon();
+		Node* SetearHijoDeEliminado = &HijoDeEliminado;
+
+		if (HijoIzquierdo.Equals(HijoIzquierdo, NodoEliminar)){
+			NodoEliminar.getParent().setLeftSon(SetearHijoDeEliminado);
+			Node SetearPadreTemporal = NodoEliminar.getParent();
+			Node* SetearPadre = &SetearPadreTemporal;
+
+			HijoDeEliminado.setParent(SetearPadre);
+			NodoEliminar.setRightSon(NULL);
+			NodoEliminar.setLeftSon(NULL);
+		}else if(HijoDerecho.Equals(HijoDerecho, NodoEliminar)){
+			NodoEliminar.getParent().setRightSon(SetearHijoDeEliminado);
+			Node SetearPadreTemporal = NodoEliminar.getParent();
+			Node* SetearPadre = &SetearPadreTemporal;
+
+			HijoDeEliminado.setParent(SetearPadre);
+			NodoEliminar.setRightSon(NULL);
+			NodoEliminar.setLeftSon(NULL);
+		}
 	}else if(TieneHijoIzquierdo && TieneHijoDerecho){
 		//cuando se elimina un nodo que tiene ambos hijos.
+		Node NodoTemporal = NodoEliminar.getRightSon();
+		Node* HijoDerecho = &NodoTemporal;
+
+		Node* LefterSon = ReturnLefterSon(HijoDerecho);
+
+		if (LefterSon != NULL){
+			(*Nodo).setValue((*LefterSon).getValue());
+
+			DeleteNode(LefterSon);
+		}
 	}
-}
+}*/
+
+/*Node* AVLTree::ReturnLefterSon(Node* Nodo){
+	Node NodoTemporal = *Nodo;
+	if (NodoTemporal.hasLeftSon()){
+		NodoTemporal = NodoTemporal.getLeftSon();
+		Nodo = &NodoTemporal;
+		return ReturnLefterSon(Nodo);
+	}
+
+	return Nodo;
+}*/
 
 /*string AVLTree::toString()const{
 	stringstream ss;

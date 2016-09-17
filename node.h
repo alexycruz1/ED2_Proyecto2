@@ -19,6 +19,8 @@ class Node{
 		Node getLeftSon();
 		Node getRightSon();
 		Node getParent();
+		Node* getLeftSonPointer();
+		Node* getRightSonPointer();
 		void setParent(Node*);
 		void setLeftSon(Node*);
 		void setRightSon(Node*);

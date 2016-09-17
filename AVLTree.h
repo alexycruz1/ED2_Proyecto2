@@ -12,7 +12,8 @@ class AVLTree{
 		~AVLTree();
 		Node getRoot();
 		void SetRoot(Node*);
-		void AddNode(Node*, Node*);
-		void DeleteNode(Node*);
+		void AddNode(int ValorInsertar);
+		//void DeleteNode(Node*);
+		//Node* ReturnLefterSon(Node*);
 		/*string toString()const;*/
 };
