@@ -5,19 +5,19 @@ using std::vector;
 
 class treeNode{
 	int value;
-	vector<treeNode> leftSon;
-	vector<treeNode> rightSon;
-	vector<treeNode> parentList;
+	treeNode* leftSon;
+	treeNode* rightSon;
+	treeNode* parentList;
 	treeNode* rightBro;
 	treeNode* leftBro;
 
   public: 
 	treeNode();
 	treeNode(int value);
-	vector<treeNode> getLeftSon();
-	vector<treeNode> getRightSon();
-	void setLeftSon(vector<treeNode>);
-	void setRightSon(vector<treeNode>);
+	treeNode* getLeftSon();
+	treeNode* getRightSon();
+	void setLeftSon(treeNode*);
+	void setRightSon(treeNode*);
 	int getValue();
 	int setValue(int);
 	bool hasRightSon();
@@ -27,8 +27,8 @@ class treeNode{
 	bool hasParentList();
 	treeNode* getRightBro();
 	treeNode* getLeftBro();
-	vector<treeNode> getParentList();
+	treeNode* getParentList();
 	void setRightBro(treeNode*);
 	void setLeftBro(treeNode*);
-	void setParentList(vector<treeNode>);
+	void setParentList(treeNode*);
 };
