@@ -574,9 +574,6 @@ void btree::borrarCase3(treeNode** hermanos, int pos, int amount, int value){
 	treeNode* bro;
 
 	if(kind == 1){
-		int sizeL = this->getElements(hermanos[pos-1]);
-		int sizeR = this->getElements(hermanos[pos+1]);
-
 		bro = hermanos[pos+1];
 		position = this->findPosition(padre,bro[0].getValue(),0,amount-1);
 		elementPadre = padre[position];

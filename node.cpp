@@ -1,9 +1,13 @@
 #include "node.h"
 #include <string>
 #include <sstream>
+#include <iostream>
 
 using std::string;
 using std::stringstream;
+using std::cout;
+using std::cin;
+using std::endl;
 
 Node::Node(){
 }
@@ -41,12 +45,24 @@ Node Node::getRightSon(){
 	return *rightSon;
 }
 
+Node* Node::getRightSonPointer(){
+	return rightSon;
+}
+
 Node Node::getParent(){
 	return *parent;
 }
 
+Node* Node::getLeftSonPointer(){
+	return leftSon;
+}
+
 void Node::setParent(Node* nodo){
 	parent = nodo;
+}
+
+Node* Node::getParentPointer(){
+	return parent;
 }
 
 void Node::setLeftSon(Node* nodo){
@@ -54,7 +70,13 @@ void Node::setLeftSon(Node* nodo){
 }
 
 void Node::setRightSon(Node* nodo){
-	rightSon = nodo;
+	if (nodo == NULL){
+		cout << "Lo setie a null" << endl;
+		rightSon = NULL;
+	}else{
+		rightSon = nodo;	
+	}
+	
 }
 
 void Node::setValue(int valor){
@@ -66,11 +88,11 @@ void Node::setLevel(int lev){
 }
 
 bool Node::Equals(Node Nodo1, Node Nodo2){
-	if ((Nodo1.getValue() == Nodo2.getValue()) && (&Nodo1 == &Nodo2)){
+	if ((Nodo1.getValue() == Nodo2.getValue())){
 		return true;
+	}else{
+		return false;
 	}
-
-	return false;
 }
 
 bool Node::hasParent(){
