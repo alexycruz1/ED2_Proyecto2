@@ -138,9 +138,17 @@ void AVLTree::DeleteNode(int ValorEliminar, int NodosTotales, int CasoEspecial){
 		if (ValorEliminar > (*PadreDeEliminado).getValue()){
 			PadreDeEliminado -> setRightSon(NULL);
 			NodoEliminar -> setParent(NULL);
+
+			bool Continuar = true, Agregar = false;
+			int Lado = 1;
+			EstaBalanceado(PadreDeEliminado, Continuar, Agregar, Lado);
 		}else{
 			PadreDeEliminado -> setLeftSon(NULL);
 			NodoEliminar -> setParent(NULL);
+
+			bool Continuar = true, Agregar = false;
+			int Lado = 0;
+			EstaBalanceado(PadreDeEliminado, Continuar, Agregar, Lado);
 		}
 	}else if((TieneHijoIzquierdo && !TieneHijoDerecho) || (!TieneHijoIzquierdo && TieneHijoDerecho)){
 		//Cuando el nodo a eliminar tiene hijo izquierdo o derecho;
@@ -154,25 +162,49 @@ void AVLTree::DeleteNode(int ValorEliminar, int NodosTotales, int CasoEspecial){
 			if ((*PadreDeEliminado).getLeftSon().getValue() == ValorEliminar){
 				(NodoEliminar -> getLeftSonPointer()) -> setParent(PadreDeEliminado);
 				PadreDeEliminado -> setLeftSon(NodoEliminar -> getLeftSonPointer());
+
+				bool Continuar = true, Agregar = false;
+				int Lado = 0;
+				EstaBalanceado(PadreDeEliminado, Continuar, Agregar, Lado);
 			}else if((*PadreDeEliminado).getRightSon().getValue() == ValorEliminar){
 				(NodoEliminar -> getLeftSonPointer()) ->setParent(PadreDeEliminado);
 				PadreDeEliminado -> setRightSon(NodoEliminar -> getLeftSonPointer());
+
+				bool Continuar = true, Agregar = false;
+				int Lado = 1;
+				EstaBalanceado(PadreDeEliminado, Continuar, Agregar, Lado);
 			}
 		}else if(!TieneHijoIzquierdo && TieneHijoDerecho && PadreDeEliminado){
 			Node* PadreDeEliminado = NodoEliminar -> getParentPointer();
 			if ((*PadreDeEliminado).getLeftSon().getValue() == ValorEliminar){
 				(NodoEliminar -> getRightSonPointer()) -> setParent(PadreDeEliminado);
 				PadreDeEliminado -> setLeftSon(NodoEliminar -> getRightSonPointer());
+
+				bool Continuar = true, Agregar = false;
+				int Lado = 0;
+				EstaBalanceado(PadreDeEliminado, Continuar, Agregar, Lado);
 			}else if((*PadreDeEliminado).getRightSon().getValue() == ValorEliminar){
 				(NodoEliminar -> getRightSonPointer()) -> setParent(PadreDeEliminado);
 				PadreDeEliminado -> setRightSon(NodoEliminar -> getRightSonPointer());
+
+				bool Continuar = true, Agregar = false;
+				int Lado = 1;
+				EstaBalanceado(PadreDeEliminado, Continuar, Agregar, Lado);
 			}
 		}else if(TieneHijoIzquierdo && !TieneHijoDerecho && !PadreDeEliminado){
 			PadreDeEliminado = PadreDeEliminado -> getLeftSonPointer();
 			PadreDeEliminado -> setParent(NULL);
+
+				bool Continuar = true, Agregar = false;
+				int Lado = 0;
+				EstaBalanceado(PadreDeEliminado, Continuar, Agregar, Lado);
 		}else if(!TieneHijoIzquierdo && TieneHijoDerecho && !PadreDeEliminado){
 			PadreDeEliminado = PadreDeEliminado -> getRightSonPointer();
 			PadreDeEliminado -> setParent(NULL);
+
+				bool Continuar = true, Agregar = false;
+				int Lado = 1;
+				EstaBalanceado(PadreDeEliminado, Continuar, Agregar, Lado);
 		}
 	}else if(TieneHijoIzquierdo && TieneHijoDerecho){
 		///cuando quiere eliminar un nodo que tiene ambos hijos.
