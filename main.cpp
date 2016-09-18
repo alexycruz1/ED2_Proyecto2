@@ -32,18 +32,19 @@ int main(int argc, char*argv[]){
 		arbol.insert(num, arbol.getRoot());
 		cout<< "Desea continuar: ";
 		cin >> dec;
-		
 		dec == 1? seguir = true:seguir = false;	
-
 	}
 	
-	if(arbol.getRoot()->hasLeftSon()){
-		cout<< "tiene hijo"<< endl;
-	}
-	if(arbol.getRoot()->hasRightSon()){
-		cout << "tieene otro hijo" << endl;
+	seguir = true;
+	while(seguir){
+		cout << "Que numero desea borrar? " << endl;
+		cin>>num;
+		arbol.borrar(num);
+		cout << "desea contunuar : ";
+		cin >> dec;
+		dec == 1? seguir = true:seguir = false;
 	}	
-	cout << arbol.toString(arbol.getRoot()) << endl;
+	arbol.showTree();
 	return 0;	
 }
 
