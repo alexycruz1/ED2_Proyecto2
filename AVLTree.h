@@ -13,7 +13,12 @@ class AVLTree{
 		Node getRoot();
 		void SetRoot(Node*);
 		void AddNode(int ValorInsertar);
-		//void DeleteNode(Node*);
-		//Node* ReturnLefterSon(Node*);
+		void DeleteNode(int ValorEliminar, int NodosTotales, int CasoEspecial);
+		Node* ReturnLefterSon(Node*);
+		void EstaBalanceado(Node* Nodo, bool Continuar, bool Agregar, int Lado);
+		void RSI(Node* Nodo);
+		void RSD(Node* Nodo);
+		void RSIx2(Node* Nodo);
+		void RSDx2(Node* Nodo);
 		/*string toString()const;*/
 };

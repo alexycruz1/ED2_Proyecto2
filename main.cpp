@@ -9,16 +9,55 @@ using std::cin;
 using std::endl;
 
 int main(int argc, char*argv[]){
-	AVLTree Arbolito(6);
+	int NodosTotales = 0;
+	AVLTree Arbolito(0);
+	NodosTotales++;
 
-	Arbolito.AddNode(5);
-	Arbolito.AddNode(4);
+	Arbolito.AddNode(9);
+	Arbolito.AddNode(3);
+	NodosTotales++;
+	//Arbolito.AddNode(4);
+	NodosTotales++;
+	//Arbolito.AddNode(15);
+	NodosTotales++;
+	//Arbolito.AddNode(11);
+	NodosTotales++;
+	Arbolito.AddNode(2);
+	NodosTotales++;
+	//Arbolito.AddNode(16);
+	NodosTotales++;
 	//Arbolito.AddNode();
 	//Arbolito.AddNode();
 
 	cout << "El valor de la raiz es: " << Arbolito.getRoot().getValue() << endl;
 	cout << "El valor del hijo izquierdo es: " << (Arbolito.getRoot().getLeftSon()).getValue() << endl;
+	//cout << "El valor del hijo del hijo izquierdo es: " << (Arbolito.getRoot().getLeftSon().getLeftSon()).getValue() << endl;
+	//cout << "El valor del hijo del hijo derecho es: " << (Arbolito.getRoot().getLeftSon().getRightSon()).getValue() << endl;
+
+	cout << "El valor del hijo derecho es: " << (Arbolito.getRoot().getRightSon()).getValue() << endl;
+	/*cout << "El valor de la raiz es: " << Arbolito.getRoot().getValue() << endl;
+
+	cout << "El valor del hijo izquierdo es: " << (Arbolito.getRoot().getLeftSon()).getValue() << endl;
 	cout << "El valor del hijo del hijo izquierdo es: " << (Arbolito.getRoot().getLeftSon().getLeftSon()).getValue() << endl;
+	//cout << "El valor del hijo del hijo derecho es: " << (Arbolito.getRoot().getLeftSon().getRightSon()).getValue() << endl;
+
+	cout << "El valor del hijo derecho es: " << (Arbolito.getRoot().getRightSon()).getValue() << endl;
+	cout << "El valor del hijo del hijo derecho es: " << (Arbolito.getRoot().getRightSon().getRightSon()).getValue() << endl;
+	cout << "El valor del hijo del hijo izquierdo es: " << (Arbolito.getRoot().getRightSon().getLeftSon()).getValue() << endl;
+	Arbolito.DeleteNode(9, NodosTotales, 0);
+
+
+	cout << "NUEVOS VALORES: " << endl;
+
+	cout << "El valor de la raiz es: " << Arbolito.getRoot().getValue() << endl;
+
+	cout << "El valor del hijo izquierdo es: " << (Arbolito.getRoot().getLeftSon()).getValue() << endl;
+	cout << "El valor del hijo del hijo izquierdo es: " << (Arbolito.getRoot().getLeftSon().getLeftSon()).getValue() << endl;
+	cout << "El valor del hijo del hijo derecho es: " << (Arbolito.getRoot().getLeftSon().getRightSon()).getValue() << endl;
+
+	cout << "El valor del hijo derecho es: " << (Arbolito.getRoot().getRightSon()).getValue() << endl;
+	cout << "El valor del hijo del hijo derecho es: " << (Arbolito.getRoot().getRightSon().getRightSon()).getValue() << endl;
+	//cout << "El valor del hijo del hijo izquierdo es: " << (Arbolito.getRoot().getRightSon().getLeftSon()).getValue() << endl;*/
 
 btree arbol(3);	
 	bool seguir = true;

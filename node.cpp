@@ -61,6 +61,10 @@ void Node::setParent(Node* nodo){
 	parent = nodo;
 }
 
+Node* Node::getParentPointer(){
+	return parent;
+}
+
 void Node::setLeftSon(Node* nodo){
 	leftSon = nodo;
 }
