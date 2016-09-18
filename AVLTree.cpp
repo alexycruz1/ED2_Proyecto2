@@ -130,25 +130,41 @@ void AVLTree::DeleteNode(int ValorEliminar, int NodosTotales, int CasoEspecial){
 		}	
 	}
 
-	bool TieneHijoIzquierdo = (*NodoEliminar).hasLeftSon();
-	bool TieneHijoDerecho = (*NodoEliminar).hasRightSon();
+	cout << "El valor del nodo a eliminar es: " << (*NodoEliminar).getValue() << endl;
+	cout << (NodoEliminar) -> hasLeftSon() << " " << (NodoEliminar) ->hasRightSon() << endl;
+	cout << (*(NodoEliminar -> getLeftSonPointer())).getValue() << endl;
+	cout << "Si paso" << endl;
+
+	bool TieneHijoIzquierdo = (NodoEliminar) -> hasLeftSon();
+	bool TieneHijoDerecho = (NodoEliminar) -> hasRightSon();
 	if(!TieneHijoIzquierdo && !TieneHijoDerecho){
 		//Cuando solo se elimina un nodo que no tiene hijos(Caso1).
-		Node* PadreDeEliminado = NodoEliminar -> getParentPointer();
-		if (ValorEliminar > (*PadreDeEliminado).getValue()){
-			PadreDeEliminado -> setRightSon(NULL);
-			NodoEliminar -> setParent(NULL);
-
-			bool Continuar = true, Agregar = false;
-			int Lado = 1;
-			EstaBalanceado(PadreDeEliminado, Continuar, Agregar, Lado);
+		Node* PadreDeEliminado;
+		if(NodoEliminar -> hasParent()){
+			Node* PadreDeEliminado = NodoEliminar -> getParentPointer();
 		}else{
-			PadreDeEliminado -> setLeftSon(NULL);
-			NodoEliminar -> setParent(NULL);
+			PadreDeEliminado = NULL;
+		}
 
-			bool Continuar = true, Agregar = false;
-			int Lado = 0;
-			EstaBalanceado(PadreDeEliminado, Continuar, Agregar, Lado);
+		if(PadreDeEliminado){
+			if (ValorEliminar > (*PadreDeEliminado).getValue()){
+				PadreDeEliminado -> setRightSon(NULL);
+				NodoEliminar -> setParent(NULL);
+
+				bool Continuar = true, Agregar = false;
+				int Lado = 1;
+				EstaBalanceado(PadreDeEliminado, Continuar, Agregar, Lado);
+			}else{
+				PadreDeEliminado -> setLeftSon(NULL);
+				NodoEliminar -> setParent(NULL);
+
+				bool Continuar = true, Agregar = false;
+				int Lado = 0;
+				EstaBalanceado(PadreDeEliminado, Continuar, Agregar, Lado);
+			}
+		}else{
+			cout << "Entre aqui y no TENGO PADRE" << endl;
+			Raiz = new Node(0);
 		}
 	}else if((TieneHijoIzquierdo && !TieneHijoDerecho) || (!TieneHijoIzquierdo && TieneHijoDerecho)){
 		//Cuando el nodo a eliminar tiene hijo izquierdo o derecho;
@@ -447,10 +463,3 @@ void AVLTree::RSIx2(Node* Nodo){
 		Hijo -> setLevel(-1);
 	}
 }
-
-/*string AVLTree::toString()const{
-	stringstream ss;
-	ss << Raiz.getValue();
-	return ss.str();	
-}
-*/

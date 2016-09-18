@@ -18,18 +18,20 @@ int main(int argc, char*argv[]){
 	NodosTotales++;
 	//Arbolito.AddNode(4);
 	NodosTotales++;
-	Arbolito.AddNode(15);
+	//Arbolito.AddNode(15);
 	NodosTotales++;
 	//Arbolito.AddNode(11);
 	NodosTotales++;
-	Arbolito.AddNode(2);
+	//Arbolito.AddNode(2);
 	NodosTotales++;
 	//Arbolito.AddNode(16);
 	NodosTotales++;
 	//Arbolito.AddNode();
 	//Arbolito.AddNode();
 
-	Arbolito.DeleteNode(15, NodosTotales, 0);
+	cout << "El valor de la raiz es: " << Arbolito.getRoot().getValue() << endl;
+	cout << "El valor del hijo izquierdo es: " << (Arbolito.getRoot().getLeftSon()).getValue() << endl;
+	//Arbolito.DeleteNode(9, NodosTotales, 0);
 
 
 	//cout << "El valor de la raiz es: " << Arbolito.getRoot().getValue() << endl;
