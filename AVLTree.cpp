@@ -244,7 +244,6 @@ void AVLTree::EstaBalanceado(Node* Nodo, bool Continuar, bool Agregar, int Lado)
 	Continuar = true;
 	//cout << "El nivel del nodo es: " << Nodo -> getLevel() << endl;
 	if(Nodo){
-		cout << "El Nodo es: " << (*Nodo).getValue() << endl;
 	}
 	
 	while(Nodo && Continuar){
@@ -336,6 +335,7 @@ void AVLTree::RSI(Node* Nodo){
 }
 
 void AVLTree::RSD(Node* Nodo){
+	cout << "El Nodo en RSD es : " << (*Nodo).getValue() << endl;
 	Node* Padre = Nodo -> getParentPointer();
 	Node* Hijo = Nodo;
 	Node* HijoIzquierdo = Hijo -> getLeftSonPointer();
@@ -367,12 +367,33 @@ void AVLTree::RSD(Node* Nodo){
 }
 
 void AVLTree::RSDx2(Node* Nodo){
-	Node* Padre = Nodo -> getParentPointer();
+	cout << "El Nodo en RSDx2 es : " << (*Nodo).getValue() << endl;
+	Node* Padre;
 	Node* Hijo = Nodo;
-	Node* HijoIzquierdo = Hijo -> getRightSonPointer();
-	Node* Nieto = HijoIzquierdo -> getLeftSonPointer();
-	Node* SubIzquierdo = Nieto -> getLeftSonPointer();
-	Node* SubDerecho = Nieto -> getRightSonPointer(); 
+	Node* HijoIzquierdo;
+	Node* Nieto;
+	Node* SubIzquierdo;
+	Node* SubDerecho;
+	if(Hijo -> getParentPointer()){
+		Padre = Hijo -> getParentPointer();
+	}
+
+	if(Hijo -> getRightSonPointer()){
+		HijoIzquierdo = Hijo -> getRightSonPointer();
+	}
+
+	if(HijoIzquierdo -> getLeftSonPointer()){
+		cout << "Si llene a nieto con " << (*(HijoIzquierdo -> getLeftSonPointer())).getValue() << endl;
+		Nieto = HijoIzquierdo -> getLeftSonPointer();
+	}
+
+	if(Nieto -> getLeftSonPointer()){
+		SubIzquierdo = Nieto -> getLeftSonPointer();
+	}
+
+	if(Nieto -> getRightSonPointer()){
+		SubDerecho = Nieto -> getRightSonPointer(); 
+	}
 
 	if(Padre){
 		if((Padre -> getRightSonPointer()) == Nodo){
@@ -385,10 +406,25 @@ void AVLTree::RSDx2(Node* Nodo){
 	}
 
 	//Reconstruir el AVL
-	HijoIzquierdo -> setRightSon(SubIzquierdo);
-	Hijo -> setLeftSon(SubDerecho);
-	Nieto -> setLeftSon(HijoIzquierdo);
-	Nieto -> setRightSon(Hijo);
+	if(HijoIzquierdo && SubIzquierdo){
+		HijoIzquierdo -> setRightSon(SubIzquierdo);
+	}
+
+	if(Hijo && SubDerecho){
+		Hijo -> setLeftSon(SubDerecho);
+	}
+
+	cout << "El valor de nieto es: " << (*Nieto).getValue() << endl;
+	cout << "El valor de HijoIzquierdo es: " << (*HijoIzquierdo).getValue() << endl;
+	if(Nieto && HijoIzquierdo){
+		Nieto -> setLeftSon(HijoIzquierdo);
+	}
+
+	cout << "Entre aqui y ahora" << endl;
+
+	if(Nieto && Hijo){
+		Nieto -> setRightSon(Hijo);
+	}
 
 	//Reasignar Padres
 	Nieto -> setParent(Padre);

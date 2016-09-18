@@ -11,10 +11,15 @@ using std::endl;
 int main(int argc, char*argv[]){
 	int NodosTotales = 0;
 	AVLTree Arbolito(0);
+	cout << "Se agrego 0" << endl;
 	NodosTotales++;
 
 	Arbolito.AddNode(9);//-> esta es raiz
+	cout << "Se agrego 9" << endl;
 	Arbolito.AddNode(3);
+	cout << "Se agrego 3" << endl;
+	Arbolito.AddNode(4);
+	cout << "Se agrego 4" << endl;
 	NodosTotales++;
 	//Arbolito.AddNode(4);
 	NodosTotales++;
@@ -30,7 +35,7 @@ int main(int argc, char*argv[]){
 	//Arbolito.AddNode();
 
 	cout << "El valor de la raiz es: " << Arbolito.getRoot().getValue() << endl;
-	cout << "El valor del hijo izquierdo es: " << (Arbolito.getRoot().getLeftSon()).getValue() << endl;
+	//cout << "El valor del hijo izquierdo es: " << (Arbolito.getRoot().getLeftSon()).getValue() << endl;
 	//Arbolito.DeleteNode(9, NodosTotales, 0);
 
 
