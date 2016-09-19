@@ -35,6 +35,9 @@ void AVLTree::AddNode(int ValorInsertar){
 	Node* RaizTemporal = Raiz;
 	int Seguir = 1;
 
+	cout << "El valor a insertar es: " << ValorInsertar << endl;
+	cout << "El valor de la raiz es: " << (*Raiz).getValue() << endl;
+
 	while(Seguir == 1){
 		if ((*Raiz).getValue() != 0){
 			if ((!(*Raiz).hasLeftSon()) && (!(*Raiz).hasRightSon())){
@@ -44,15 +47,16 @@ void AVLTree::AddNode(int ValorInsertar){
 
 					bool Continuar = true, Agregar = true;
 					int Lado = 1;
-					EstaBalanceado(Nodo, Continuar, Agregar, Lado);
+					EstaBalanceado(Raiz, Continuar, Agregar, Lado);
 					Seguir = 0;
-				}else{
+				}else if(ValorInsertar < (*Raiz).getValue()){
+					cout << "ENTRE AQUI" << endl;
 					Raiz -> setLeftSon(Nodo);
 					Nodo -> setParent(Raiz);
 
 					bool Continuar = true, Agregar = true;
 					int Lado = 0;
-					EstaBalanceado(Nodo, Continuar, Agregar, Lado);
+					EstaBalanceado(Raiz, Continuar, Agregar, Lado);
 					Seguir = 0;
 				}
 			}else{
@@ -65,7 +69,7 @@ void AVLTree::AddNode(int ValorInsertar){
 
 						bool Continuar = true, Agregar = true;
 						int Lado = 1;
-						EstaBalanceado(Nodo, Continuar, Agregar, Lado);
+						EstaBalanceado(RaizTemporal, Continuar, Agregar, Lado);
 						Seguir = 0;
 					}
 				}else{
@@ -77,14 +81,15 @@ void AVLTree::AddNode(int ValorInsertar){
 
 						bool Continuar = true, Agregar = true;
 						int Lado = 0;
-						EstaBalanceado(Nodo, Continuar, Agregar, Lado);
+						EstaBalanceado(RaizTemporal, Continuar, Agregar, Lado);
 						Seguir = 0;
 					}
 				}
 			}
 		}else if((*Raiz).getValue() == 0){
+			delete Raiz;
 			Raiz = new Node(ValorInsertar);
-
+			Seguir = 0;
 		}
 	}
 }
@@ -163,7 +168,6 @@ void AVLTree::DeleteNode(int ValorEliminar, int NodosTotales, int CasoEspecial){
 				EstaBalanceado(PadreDeEliminado, Continuar, Agregar, Lado);
 			}
 		}else{
-			cout << "Entre aqui y no TENGO PADRE" << endl;
 			Raiz = new Node(0);
 		}
 	}else if((TieneHijoIzquierdo && !TieneHijoDerecho) || (!TieneHijoIzquierdo && TieneHijoDerecho)){
@@ -243,9 +247,6 @@ void AVLTree::EstaBalanceado(Node* Nodo, bool Continuar, bool Agregar, int Lado)
 	//Lado = 1 -> derecho, Lado = 0 -> Izquierdo
 	Continuar = true;
 	//cout << "El nivel del nodo es: " << Nodo -> getLevel() << endl;
-	if(Nodo){
-	}
-	
 	while(Nodo && Continuar){
 		if (Agregar == true){
 			if (Lado == 0){
@@ -267,14 +268,11 @@ void AVLTree::EstaBalanceado(Node* Nodo, bool Continuar, bool Agregar, int Lado)
 			Continuar = false;
 			//cout << "Estoy Balanceado " << endl;
 		}else if(Nodo -> getLevel() == -2){
-			cout << "Entre en el -2" << endl;
-			cout << "El Nivel es: " << (Nodo-> getLeftSonPointer()) -> getLevel() << endl;
 			if ((Nodo -> getLeftSonPointer()) -> getLevel() == 1){
 				cout << "Entre aqui RSDx2" << endl;
 				RSDx2(Nodo);
 			}else{
 				cout << "Entre aqui RSD" << endl;
-				//cout << "Valor de nodo: " << (*Nodo).getValue() << endl;
 				RSD(Nodo);
 			}
 
@@ -304,6 +302,7 @@ void AVLTree::EstaBalanceado(Node* Nodo, bool Continuar, bool Agregar, int Lado)
 }
 
 void AVLTree::RSI(Node* Nodo){
+	cout << "El nodo en RSI es: " << (*Nodo).getValue() << endl;
 	Node* Padre = Nodo -> getParentPointer();
 	Node* Hijo = Nodo;
 	Node* HijoIzquierdo = Hijo -> getRightSonPointer();
@@ -335,7 +334,6 @@ void AVLTree::RSI(Node* Nodo){
 }
 
 void AVLTree::RSD(Node* Nodo){
-	cout << "El Nodo en RSD es : " << (*Nodo).getValue() << endl;
 	Node* Padre = Nodo -> getParentPointer();
 	Node* Hijo = Nodo;
 	Node* HijoIzquierdo = Hijo -> getLeftSonPointer();
@@ -367,33 +365,12 @@ void AVLTree::RSD(Node* Nodo){
 }
 
 void AVLTree::RSDx2(Node* Nodo){
-	cout << "El Nodo en RSDx2 es : " << (*Nodo).getValue() << endl;
-	Node* Padre;
 	Node* Hijo = Nodo;
-	Node* HijoIzquierdo;
-	Node* Nieto;
-	Node* SubIzquierdo;
-	Node* SubDerecho;
-	if(Hijo -> getParentPointer()){
-		Padre = Hijo -> getParentPointer();
-	}
-
-	if(Hijo -> getRightSonPointer()){
-		HijoIzquierdo = Hijo -> getRightSonPointer();
-	}
-
-	if(HijoIzquierdo -> getLeftSonPointer()){
-		cout << "Si llene a nieto con " << (*(HijoIzquierdo -> getLeftSonPointer())).getValue() << endl;
-		Nieto = HijoIzquierdo -> getLeftSonPointer();
-	}
-
-	if(Nieto -> getLeftSonPointer()){
-		SubIzquierdo = Nieto -> getLeftSonPointer();
-	}
-
-	if(Nieto -> getRightSonPointer()){
-		SubDerecho = Nieto -> getRightSonPointer(); 
-	}
+	Node* Padre = Nodo -> getParentPointer();
+	Node* HijoIzquierdo = Hijo -> getLeftSonPointer();
+	Node* Nieto = HijoIzquierdo -> getRightSonPointer();
+	Node* SubIzquierdo = Nieto -> getLeftSonPointer();
+	Node* SubDerecho = Nieto -> getRightSonPointer(); 
 
 	if(Padre){
 		if((Padre -> getRightSonPointer()) == Nodo){
@@ -406,25 +383,11 @@ void AVLTree::RSDx2(Node* Nodo){
 	}
 
 	//Reconstruir el AVL
-	if(HijoIzquierdo && SubIzquierdo){
-		HijoIzquierdo -> setRightSon(SubIzquierdo);
-	}
-
-	if(Hijo && SubDerecho){
-		Hijo -> setLeftSon(SubDerecho);
-	}
-
-	cout << "El valor de nieto es: " << (*Nieto).getValue() << endl;
-	cout << "El valor de HijoIzquierdo es: " << (*HijoIzquierdo).getValue() << endl;
-	if(Nieto && HijoIzquierdo){
-		Nieto -> setLeftSon(HijoIzquierdo);
-	}
-
-	cout << "Entre aqui y ahora" << endl;
-
-	if(Nieto && Hijo){
-		Nieto -> setRightSon(Hijo);
-	}
+	HijoIzquierdo -> setRightSon(SubIzquierdo);
+	Hijo -> setLeftSon(SubDerecho);
+	Nieto -> setLeftSon(HijoIzquierdo);
+	Nieto -> setRightSon(Hijo);
+	
 
 	//Reasignar Padres
 	Nieto -> setParent(Padre);

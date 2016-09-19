@@ -4,6 +4,7 @@
 using std::string;
 
 class Node{
+public:
 	int value;
 	int level;
 	Node* leftSon;
