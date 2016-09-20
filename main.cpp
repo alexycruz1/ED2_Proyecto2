@@ -113,11 +113,7 @@ int main(int argc, char*argv[]){
 	endwin();
 	cout << "EL NUMERO QUE CONVERTISTE ES: " << pruebas << endl;
 	Arbolito.Recorrido(Arbolito.getRootPointer());
-	return 0;	
-}
-
-
-/*int size = 0;
+	/*int size = 0;
 	int number = 0;
 	int decision = 0;
 	bool seguir = true;
@@ -162,8 +158,9 @@ int main(int argc, char*argv[]){
 			for(int i = 0; i < 16; i++){
 				lista.push_back(lista2[i]);
 			}
-			for(int i = 0; i < 16; i++){
-				tree.insert(lista[i], tree.getRoot());
+			for(int i = 1; i < 101; i++){
+				//tree.insert(lista[i], tree.getRoot());
+				tree.insert(i, tree.getRoot());
 			}
 
 		}else if(decision == 5){
@@ -180,6 +177,12 @@ int main(int argc, char*argv[]){
 		}
 		//EN ESTA COSA MERA PIJA SE SALE DEL CICLO
 		decision == 6 ? seguir = false : seguir = true;
+	}*/
+	return 0;	
+}
+
+
+/*
 	}*/
 
 
