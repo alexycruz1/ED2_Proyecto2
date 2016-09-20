@@ -27,6 +27,7 @@ void loadNumbers(vector<int>&);
 
 int main(int argc, char*argv[]){
 	int NodosTotales = 0;
+	int lista2[] = {21,33,77,98,12,6,31,44,28,4,3,99,101,200,14,1};
 	char letter = ' ';
 	AVLTree Arbolito(0);
 	int width, height;
@@ -255,7 +256,55 @@ int main(int argc, char*argv[]){
 						getch();
 					}*/
 				}else if(opcion2 == '4'){//MOSTRAR AVL (PENDIENTE)
-					
+					getch();
+					endwin();
+					cout << "MENU SECUNDARIO"  << endl;
+					cout << "1. Mostrar Arbol AVL" << endl;
+					cout << "2. Mostrar arbol B" << endl;
+					cout << "3. Buscar en arbol AVL" << endl;
+					cout << "4. Salir del programa" << endl;
+					cin >> decision;
+
+					if(decision == 1){
+						cout << "------------------------------------------------------------------------" << endl;
+						cout << "EL RECORRIDO DEL ARBOL AVL EN PREORDEN ES: " << endl;
+						Arbolito.Recorrido(Arbolito.getRootPointer());
+						cout << "Desea continuar (s/n)" << endl;
+						cin >> letter;
+						letter == 'n' ? decision = 3: decision = 1;
+						if(letter == 's'){
+							initscr();
+							(void)echo();					
+						}
+					}else if(decision == 2){
+						treeNode** root = new treeNode*[1];
+						root[0] = tree.getRoot();
+						tree.showTree(root, 1);
+						cout << "Desea continuar (s/n)" << endl;
+						cin >> letter;
+						letter == 'n' ? decision = 3: decision = 1;
+						if(letter == 's'){
+						initscr();
+						(void)echo();					
+					}
+				}else if(decision == 3){
+					cout << "Ingrese el valor a buscar: " << endl;
+					int ValorABuscar;
+					cin >> ValorABuscar;
+					Node* Padre = Arbolito.BuscarNodo(ValorABuscar, NodosTotales);
+					cout << "El nodo es hijo de: " << (*Padre).getValue() << endl;
+					cout << "-------------------------------------------------------------------------" << endl;
+					cout << "Desea continuar (s/n)" << endl;
+					cin >> letter;
+					letter == 'n' ? decision = 3: decision = 1;
+				if(letter == 's'){
+					initscr();
+					(void)echo();					
+				}
+			}
+
+			decision == 4 ? seguir = false : seguir = true;
+			decision == 4 ? opcion2 = '0' : opcion2 = '1';
 				}
 			}
 		}else if(opcion1 == '2'){//OPCIONES ARBOL-B
@@ -347,9 +396,66 @@ int main(int argc, char*argv[]){
 						getch();
 					}
 				}else if(opcion3 == '3'){//CARGAR ARBOL-B (PENDIENTE)
+				//loadNumbers(lista);
+				/*for(int i = 0; i < 16; i++){
+				lista.push_back(lista2[i]);
+			}*/
+			/*for(int i = 1; i < 11; i++){
+				//tree.insert(lista[i], tree.getRoot());
+				tree.insert(i, tree.getRoot());
+				cout << i << endl;
+			}*/
 
 				}else if(opcion3 == '4'){//MOSTRAR ARBOL-B (PENDIENTE)
+					getch();
+					endwin();
+					cout << "MENU SECUNDARIO"  << endl;
+					cout << "1. Mostrar Arbol AVL" << endl;
+					cout << "2. Mostrar arbol B" << endl;
+					cout << "3. Buscar en arbol AVL" << endl;
+					cout << "4. Salir del programa" << endl;
+					cin >> decision;
 
+					if(decision == 1){
+						cout << "------------------------------------------------------------------------" << endl;
+						cout << "EL RECORRIDO DEL ARBOL AVL EN PREORDEN ES: " << endl;
+						Arbolito.Recorrido(Arbolito.getRootPointer());
+						cout << "Desea continuar (s/n)" << endl;
+						cin >> letter;
+						letter == 'n' ? decision = 3: decision = 1;
+						if(letter == 's'){
+							initscr();
+							(void)echo();					
+						}
+					}else if(decision == 2){
+						treeNode** root = new treeNode*[1];
+						root[0] = tree.getRoot();
+						tree.showTree(root, 1);
+						cout << "Desea continuar (s/n)" << endl;
+						cin >> letter;
+						letter == 'n' ? decision = 3: decision = 1;
+						if(letter == 's'){
+						initscr();
+						(void)echo();					
+					}
+				}else if(decision == 3){
+					cout << "Ingrese el valor a buscar: " << endl;
+					int ValorABuscar;
+					cin >> ValorABuscar;
+					Node* Padre = Arbolito.BuscarNodo(ValorABuscar, NodosTotales);
+					cout << "El nodo es hijo de: " << (*Padre).getValue() << endl;
+					cout << "-------------------------------------------------------------------------" << endl;
+					cout << "Desea continuar (s/n)" << endl;
+					cin >> letter;
+					letter == 'n' ? decision = 3: decision = 1;
+				if(letter == 's'){
+					initscr();
+					(void)echo();					
+				}
+			}
+
+			decision == 4 ? seguir = false : seguir = true;
+			decision == 4 ? opcion3 = '0' : opcion3 = '1';
 				}else if(opcion3 == '5'){//CAMBIAR SIZE ARBOL-B
 					clear();
 					string ValorIngresado = "";

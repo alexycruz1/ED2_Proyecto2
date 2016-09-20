@@ -49,7 +49,7 @@ vector<int> btree::getKeys(){
 }
 void btree::locate(treeNode nuevo, treeNode* nodo, int pos, treeNode extra){
 	treeNode temporal(0);
-	cout << "colocar: " << nuevo.getValue() << endl;
+	//cout << "colocar: " << nuevo.getValue() << endl;
 	//this->toString(nodo);
 	if(pos <= size-1){
 		if(nodo == root){
@@ -372,10 +372,10 @@ treeNode** btree::getChildrenList(treeNode* nodo){
 }
 
 void btree::borrar(int value){
-	if(std::find(allKeys.begin(), allKeys.end(), value)!=allKeys.end()){
-		treeNode** nodo = new treeNode*[1];
+	treeNode** nodo = new treeNode*[1];
 		nodo[0] = root;
 		find(nodo,1,value,value);
+	if(std::find(allKeys.begin(), allKeys.end(), value)!=allKeys.end()){
 		allKeys.erase(allKeys.begin() + (std::find(allKeys.begin(), allKeys.end(), value) - allKeys.begin()));
 	}else{
 		cout << "este numero no existe" << endl;
