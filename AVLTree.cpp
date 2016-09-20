@@ -153,14 +153,14 @@ void AVLTree::DeleteNode(int ValorEliminar, int NodosTotales, int CasoEspecial){
 
 				bool Continuar = true, Agregar = false;
 				int Lado = 1;
-				EstaBalanceado(PadreDeEliminado, Continuar, Agregar, Lado);
+				//EstaBalanceado(PadreDeEliminado, Continuar, Agregar, Lado);
 			}else{
 				PadreDeEliminado -> setLeftSon(NULL);
 				NodoEliminar -> setParent(NULL);
 
 				bool Continuar = true, Agregar = false;
 				int Lado = 0;
-				EstaBalanceado(PadreDeEliminado, Continuar, Agregar, Lado);
+				//EstaBalanceado(PadreDeEliminado, Continuar, Agregar, Lado);
 			}
 		}else{
 			Raiz = new Node(0);
