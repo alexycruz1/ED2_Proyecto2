@@ -3,6 +3,7 @@
 #include "node.h"
 
 using std::string;
+using std::stringstream;
 
 class AVLTree{
 	Node* Raiz;
@@ -22,6 +23,6 @@ class AVLTree{
 		void RSIx2(Node* Nodo);
 		void RSDx2(Node* Nodo);
 		void Recorrido(Node* Nodo);
-		Node* Buscar(int ValorNodo, int NodosTotales);
+		Node* BuscarNodo(int valor, int NodosTotales);
 		/*string toString()const;*/
 };

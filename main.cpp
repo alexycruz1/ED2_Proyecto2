@@ -163,7 +163,7 @@ int main(int argc, char*argv[]){
 						getch();
 					}
 				}else if(opcion2 == '3'){//buscar AVL (PENDIENTE)
-					clear();
+					/*clear();
 					string ValorIngresado = "";
 					char ValorIngresadoTemp[15];
 					int ValorBuscar;
@@ -200,7 +200,7 @@ int main(int argc, char*argv[]){
 						mvprintw(6,width-100,"Regresaras al menu principal");
 						opcion2 = '0';
 						getch();
-					}
+					}*/
 				}else if(opcion2 == '4'){//MOSTRAR AVL (PENDIENTE)
 					
 				}
@@ -351,8 +351,16 @@ int main(int argc, char*argv[]){
 	//aqui termina la mierda
 	getch();
 	endwin();
-	cout << "EL NUMERO QUE CONVERTISTE ES: " << pruebas << endl;
+	cout << "------------------------------------------------------------------------" << endl;
+	cout << "EL RECORRIDO DEL ARBOL EN PREORDEN ES: " << endl;
 	Arbolito.Recorrido(Arbolito.getRootPointer());
+	cout << "------------------------------------------------------------------------" << endl;
+
+	cout << "Ingrese el valor a buscar: " << endl;
+	int ValorABuscar;
+	cin >> ValorABuscar;
+	cout << "El nodo es hijo de: " << Arbolito.BuscarNodo(ValorABuscar, NodosTotales);
+	cout << "-------------------------------------------------------------------------" << endl;
 	return 0;	
 }
 

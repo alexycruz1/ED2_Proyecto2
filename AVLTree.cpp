@@ -87,7 +87,6 @@ void AVLTree::AddNode(int ValorInsertar){
 				}
 			}
 		}else if((*Raiz).getValue() == 0){
-			delete Raiz;
 			Raiz = new Node(ValorInsertar);
 			Seguir = 0;
 		}
@@ -449,22 +448,21 @@ void AVLTree::Recorrido(Node* Nodo){
 	}
 }
 
-Node* AVLTree::Buscar(int ValorNodo, int NodosTotales){
-	Node* NodoEncontrado = new Node(ValorNodo);
+Node* AVLTree::BuscarNodo(int valor, int NodosTotales){
+	Node* ValorABuscar = Raiz;
 	int Revisar = 0;
-	while(ValorNodo != (*NodoEncontrado).getValue() && (Revisar <= NodosTotales)){
+
+	while(valor != (*ValorABuscar).getValue() && (Revisar <= NodosTotales)){
 		Revisar++;
-		if (ValorNodo > (*NodoEncontrado).getValue()){
-			if ((*NodoEncontrado).hasRightSon()){
-				NodoEncontrado = NodoEncontrado -> getRightSonPointer();
+		if (valor > (*ValorABuscar).getValue()){
+			if ((*ValorABuscar).hasRightSon()){
+				ValorABuscar = ValorABuscar -> getRightSonPointer();
 			}
-		}else if(ValorNodo < (*NodoEncontrado).getValue()){
-			if((*NodoEncontrado).hasLeftSon()){
-				NodoEncontrado = NodoEncontrado -> getLeftSonPointer();	
+		}else if(valor < (*ValorABuscar).getValue()){
+			if((*ValorABuscar).hasLeftSon()){
+				ValorABuscar = ValorABuscar -> getLeftSonPointer();	
 			}
 		}
 	}
-
-	NodoEncontrado = NodoEncontrado -> getParentPointer();
-	return NodoEncontrado;
+	return ValorABuscar -> getParentPointer();
 }
