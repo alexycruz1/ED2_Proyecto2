@@ -71,7 +71,6 @@ void Node::setLeftSon(Node* nodo){
 
 void Node::setRightSon(Node* nodo){
 	if (nodo == NULL){
-		cout << "Lo setie a null" << endl;
 		rightSon = NULL;
 	}else{
 		rightSon = nodo;	

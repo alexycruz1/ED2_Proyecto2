@@ -7,10 +7,23 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <fstream>
+#include <string>
+#include <cstdlib>
+#include <vector>
+#include <sstream>
 
+using std::stringstream;
+using std::vector;
+using std::string;
+using std::atoi;
 using std::cout;
 using std::cin;
 using std::endl;
+using std::ifstream;
+
+void loadNumbers(vector<int>&);
+
 
 int main(int argc, char*argv[]){
 	int NodosTotales = 0;
@@ -99,9 +112,12 @@ int main(int argc, char*argv[]){
 	getch();
 	endwin();
 	cout << "EL NUMERO QUE CONVERTISTE ES: " << pruebas << endl;
-	Arbolito.Recorrido(Arbolito.getRoot());
+	Arbolito.Recorrido(Arbolito.getRootPointer());
 	return 0;	
 }
+
+
+
 
 	
 

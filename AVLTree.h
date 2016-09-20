@@ -21,6 +21,6 @@ class AVLTree{
 		void RSD(Node* Nodo);
 		void RSIx2(Node* Nodo);
 		void RSDx2(Node* Nodo);
-		int Recorrido(Node* Nodo);
+		void Recorrido(Node* Nodo);
 		/*string toString()const;*/
 };
