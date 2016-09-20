@@ -25,6 +25,10 @@ Node AVLTree::getRoot(){
 	return *Raiz;
 }
 
+Node* AVLTree::getRootPointer(){
+	return Raiz;
+}
+
 void AVLTree::SetRoot(Node* Nodo){
 	this -> Raiz = Nodo;
 }
@@ -460,5 +464,15 @@ void AVLTree::RSIx2(Node* Nodo){
 	}else if((Nieto -> getLevel()) == 1){
 		HijoIzquierdo -> setLevel(0);
 		Hijo -> setLevel(-1);
+	}
+}
+
+int AVLTree::Recorrido(Node* Nodo){
+	if(!Nodo){
+		return 1;
+	}else{
+		cout << (*Nodo).getValue() << endl;
+		Recorrido(Nodo -> getLeftSonPointer());
+		Recorrido(Nodo -> getRightSonPointer());
 	}
 }
