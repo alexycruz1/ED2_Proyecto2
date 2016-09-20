@@ -87,7 +87,6 @@ void AVLTree::AddNode(int ValorInsertar){
 				}
 			}
 		}else if((*Raiz).getValue() == 0){
-			delete Raiz;
 			Raiz = new Node(ValorInsertar);
 			Seguir = 0;
 		}
@@ -96,11 +95,12 @@ void AVLTree::AddNode(int ValorInsertar){
 
 void AVLTree::DeleteNode(int ValorEliminar, int NodosTotales, int CasoEspecial){
 	Node* NodoEliminar = Raiz;
+	cout << "Nodo a eliminar: " << (*NodoEliminar).getValue();
 	int Revisar = 0;
 	int Repetido = 0;
 
 	if (CasoEspecial == 0){
-		while(ValorEliminar != (*NodoEliminar).getValue() && (Revisar < NodosTotales)){
+		while(ValorEliminar != (*NodoEliminar).getValue() && (Revisar <= NodosTotales)){
 			Revisar++;
 			if (ValorEliminar > (*NodoEliminar).getValue()){
 				if ((*NodoEliminar).hasRightSon()){
@@ -256,7 +256,6 @@ void AVLTree::EstaBalanceado(Node* Nodo, bool Continuar, bool Agregar, int Lado)
 			}
 		}
 
-		//Casos
 		if (Nodo -> getLevel() == 0){
 			Continuar = false;
 		}else if(Nodo -> getLevel() == -2){
@@ -305,12 +304,9 @@ void AVLTree::RSI(Node* Nodo){
 		Raiz = HijoIzquierdo;
 	}
 
-	//Construir AVL
 	Hijo -> setRightSon(Nieto);
 	HijoIzquierdo -> setLeftSon(Hijo);
 
-
-   //Reasignar padres
 	Hijo -> setParent(HijoIzquierdo);
 	if(Nieto){
 		Nieto -> setParent(Hijo);
@@ -336,12 +332,9 @@ void AVLTree::RSD(Node* Nodo){
 		Raiz = HijoIzquierdo;
 	}
 
-	//Construir AVL
 	Hijo -> setLeftSon(Nieto);
 	HijoIzquierdo -> setRightSon(Hijo);
 
-
-   //Reasignar padres
 	Hijo -> setParent(HijoIzquierdo);
 	if(Nieto){
 		Nieto -> setParent(Hijo);
@@ -369,14 +362,11 @@ void AVLTree::RSDx2(Node* Nodo){
 		Raiz = Nieto;
 	}
 
-	//Reconstruir el AVL
 	HijoIzquierdo -> setRightSon(SubIzquierdo);
 	Hijo -> setLeftSon(SubDerecho);
 	Nieto -> setLeftSon(HijoIzquierdo);
 	Nieto -> setRightSon(Hijo);
 	
-
-	//Reasignar Padres
 	Nieto -> setParent(Padre);
 	Hijo -> setParent(HijoIzquierdo);
 	HijoIzquierdo -> setParent(Nieto);
@@ -419,13 +409,11 @@ void AVLTree::RSIx2(Node* Nodo){
 		Raiz = Nieto;
 	}
 
-	//Reconstruir el AVL
 	HijoIzquierdo -> setLeftSon(SubIzquierdo);
 	Hijo -> setRightSon(SubDerecho);
 	Nieto -> setLeftSon(Hijo);
 	Nieto -> setRightSon(HijoIzquierdo);
 
-	//Reasignar Padres
 	Nieto -> setParent(Padre);
 	Hijo -> setParent(HijoIzquierdo);
 	HijoIzquierdo -> setParent(Nieto);
@@ -458,4 +446,23 @@ void AVLTree::Recorrido(Node* Nodo){
 		Recorrido(Nodo -> getLeftSonPointer());
 		Recorrido(Nodo -> getRightSonPointer());
 	}
+}
+
+Node* AVLTree::BuscarNodo(int valor, int NodosTotales){
+	Node* ValorABuscar = Raiz;
+	int Revisar = 0;
+
+	while(valor != (*ValorABuscar).getValue() && (Revisar <= NodosTotales)){
+		Revisar++;
+		if (valor > (*ValorABuscar).getValue()){
+			if ((*ValorABuscar).hasRightSon()){
+				ValorABuscar = ValorABuscar -> getRightSonPointer();
+			}
+		}else if(valor < (*ValorABuscar).getValue()){
+			if((*ValorABuscar).hasLeftSon()){
+				ValorABuscar = ValorABuscar -> getLeftSonPointer();	
+			}
+		}
+	}
+	return ValorABuscar -> getParentPointer();
 }
