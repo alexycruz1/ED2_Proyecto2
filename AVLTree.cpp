@@ -468,24 +468,3 @@ Node* AVLTree::Buscar(int ValorNodo, int NodosTotales){
 	NodoEncontrado = NodoEncontrado -> getParentPointer();
 	return NodoEncontrado;
 }
-
-string AVLTree::VerArbol(Node* NodoActual, int NodosTotales)const{
-	stringstream ss;
-	if(NodoActual == NULL){
-		return ss.str();
-	}
-
-	if(NodoActual -> getRightSonPointer()){
-		VerArbol(NodoActual -> getRightSonPointer(), NodosTotales+1);
-	}
-
-	for(int i = 0; i < NodosTotales; i++){
-		ss << "   ";
-	}
-
-	ss << (*NodoActual).getValue() << endl;
-
-	if(NodoActual -> getRightSonPointer()){
-		VerArbol(NodoActual -> getLeftSonPointer(), NodosTotales+1);
-	}
-}
