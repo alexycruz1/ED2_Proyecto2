@@ -2,7 +2,10 @@
 #include "B_tree.h"
 #include <sstream>
 #include <iostream>
+#include <vector>
+#include <algorithm>
 
+using std::vector;
 using std::cout;
 using std::cin;
 using std::endl;
@@ -19,22 +22,35 @@ btree::btree(int number){
 
 void btree::insert(int value, treeNode* current){
 	treeNode nuevo(value);
-	
 	if(!this->hasChildren(current)){
 		locate(nuevo, current, 0,nuevo);
 		treeNode** general = new treeNode*[1];
 		general[0] = root;
 		recorrerPadres(general,1);
+		if(std::find(allKeys.begin(), allKeys.end(), value)==allKeys.end()){
+			allKeys.push_back(value);
+		}
 	}else{
 		insert(value,this->getCorrectNode(current,nuevo,0));		
 	}
-
 }
 
+void btree::reSize(int number){
+	size = number;
+	root = new treeNode[size];
+
+	for(int i = 0; i < allKeys.size(); i++){
+		this->insert(allKeys[i], root);
+	}	
+}
+
+vector<int> btree::getKeys(){
+	return allKeys;
+}
 void btree::locate(treeNode nuevo, treeNode* nodo, int pos, treeNode extra){
 	treeNode temporal(0);
 	cout << "colocar: " << nuevo.getValue() << endl;
-	this->toString(nodo);
+	//this->toString(nodo);
 	if(pos <= size-1){
 		if(nodo == root){
 			if(nodo[pos].getValue() == 0){
@@ -56,13 +72,13 @@ void btree::locate(treeNode nuevo, treeNode* nodo, int pos, treeNode extra){
 		}else{
 			if(nodo[pos].getValue() == 0){
 				nodo[pos] = nuevo;
-				for(int i = 0; i < size; i++){
+				/*for(int i = 0; i < size; i++){
 					if(nodo[i].getParentList()!=NULL ){
 						cout << "setea padre de: " << nodo[i].getValue()<<endl;
 						nodo[pos].setParentList(nodo[i].getParentList());
 						i = size;	
 					}
-				}
+				}*/
 			
 			}else{
 				if(nodo[pos].getValue() <= nuevo.getValue()){
@@ -71,10 +87,10 @@ void btree::locate(treeNode nuevo, treeNode* nodo, int pos, treeNode extra){
 				}else if(nodo[pos].getValue()>nuevo.getValue()){
 					temporal = nodo[pos];
 					nodo[pos] = nuevo;
-					if(temporal.getParentList()!=NULL){
+					/*if(temporal.getParentList()!=NULL){
 						cout << "setea padre de: " << temporal.getValue()<< endl;
 						nodo[pos].setParentList(temporal.getParentList());
-					}
+					}*/
 					pos+=1;
 					extra = temporal;
 					locate(temporal,nodo,pos,extra);
@@ -86,11 +102,12 @@ void btree::locate(treeNode nuevo, treeNode* nodo, int pos, treeNode extra){
 				treeNode* left = nodo[pos].getLeftSon();
 				treeNode* right = nodo[pos].getRightSon();
 
-				for(int i = 0; i < size; i++){
+				/*for(int i = 0; i < size; i++){
 					left[i].setParentList(nodo);
 					right[i].setParentList(nodo);
-				}
+				}*/
 			}
+			
 	}else{
 		int contador = 0;
 		pos = (size+1)/2;
@@ -103,7 +120,6 @@ void btree::locate(treeNode nuevo, treeNode* nodo, int pos, treeNode extra){
 		if(nodo == root){
                         root = arr;
                 }else{
-                        cout << "ACEITUNO ES UN PENDEJO"<< endl;
                         arr = nodo[pos].getParentList();
                 }
 
@@ -121,7 +137,7 @@ void btree::locate(treeNode nuevo, treeNode* nodo, int pos, treeNode extra){
 		}
 		right[contador] = extra;
 		setBrothers(arr,nodo[pos]);
-		locate(nodo[pos], arr, 0,extra);
+		locate(nodo[pos], arr, 0,nodo[pos]);
 	}
 
 }
@@ -162,8 +178,7 @@ void btree::setBrothers(treeNode* nodo, treeNode value){
 string btree::toString(treeNode* nodo){
 	for(int i = 0; i < size; i++){
 		cout << nodo[i].getValue() << ";";
-	}
-	cout<< "\n";	
+	}	
 	return " ";
 }
 		
@@ -187,25 +202,29 @@ bool btree::hasChildren(treeNode* nodo){
 }
 
 treeNode* btree::getCorrectNode(treeNode* nodo, treeNode value, int pos){
-	cout << " eligio: ";
+	//cout << " eligio: ";
 	if(pos<size-1){
 		if(nodo[pos+1].getValue() == 0){
 			if(value.getValue() < nodo[pos].getValue()){
-				this->toString(nodo[pos].getLeftSon());
+				//this->toString(nodo[pos].getLeftSon()); 
+				//cout << endl;
 				nodo[pos].getLeftSon()->setParentList(nodo);
 				return nodo[pos].getLeftSon();
 			}else if(value.getValue() >= nodo[pos].getValue()){
-				this->toString(nodo[pos].getRightSon());
+				//this->toString(nodo[pos].getRightSon());
+				//cout << endl;
 				nodo[pos].getRightSon()->setParentList(nodo);
 				return nodo[pos].getRightSon();
 			}
 		}else{
 			if(value.getValue() >= nodo[pos].getValue() && value.getValue() < nodo[pos+1].getValue()){
-				this->toString(nodo[pos].getRightSon());
+				//this->toString(nodo[pos].getRightSon());
+				//cout << endl;
 				nodo[pos].getRightSon()->setParentList(nodo);
 				return nodo[pos].getRightSon();
 			}else if(value.getValue() < nodo[pos].getValue()){
-				this->toString(nodo[pos].getLeftSon());
+				//this->toString(nodo[pos].getLeftSon());
+				//cout << endl;
 				nodo[pos].getLeftSon()->setParentList(nodo);
 				return nodo[pos].getLeftSon();
 			}else{
@@ -215,75 +234,90 @@ treeNode* btree::getCorrectNode(treeNode* nodo, treeNode value, int pos){
 		}
 	}else{
 		if(value.getValue() < nodo[pos].getValue()){
-			this->toString(nodo[pos].getLeftSon());
+			//this->toString(nodo[pos].getLeftSon());
+			//cout << endl;
 			nodo[pos].getLeftSon()->setParentList(nodo);
 			return nodo[pos].getLeftSon();
 		}else if(value.getValue() >= nodo[pos].getValue()){
-			this->toString(nodo[pos].getRightSon());
+			//this->toString(nodo[pos].getRightSon());
+			//cout << endl;
 			nodo[pos].getRightSon()->setParentList(nodo);
 			return nodo[pos].getRightSon();
 		}
 	}
 }
 
-void btree::showTree(){
-	treeNode* nodo = root;
-	treeNode* left;
-	treeNode* right;
-	treeNode* parent;
-	for(int i = 0; i < size; i++){
-		left = nodo[i].getLeftSon();
-		right = nodo[i].getRightSon();
-		cout << nodo[i].getValue() << ";";
-		cout << "--->";
-		for(int k = 0; k < size; k++){
-			cout << left[k].getValue() << ";";
-		}
-		cout << " --->";
+void btree::showTree(treeNode** lista, int amount){
+	int size2 = amount;
+	treeNode** listaNueva;
 
+	for(int i = 0; i < amount; i++){
+		treeNode* nodo = lista[i];
+		size2+=this->getElements(nodo);
+		treeNode* left;
+		treeNode* right;
+		cout << endl;
+		this->toString(nodo);
+		cout << endl;
 		for(int k = 0; k < size; k++){
-			cout << right[k].getValue() << ";";
+			if(nodo[k].getValue()!= 0){
+				if(nodo[k].hasChildren()){
+					left = nodo[k].getLeftSon();
+					right = nodo[k].getRightSon();
+					this->toString(left);
+					cout << " <------ ";
+					cout << nodo[k].getValue();
+					cout << " ------> ";
+					this->toString(right);
+					cout << endl;
+				}else{
+					cout << nodo[k].getValue();
+					cout << " --->" << " no tiene hijos" << endl;
+				} 
+			}	
 		}
-		cout << "\n";
-		for(int k = 0; k < size; k++){
-			if(left[k].getValue()!=0){
-				parent = left[k].getParentList();
-				if(parent!=NULL){
-                        	cout << left[k].getValue() << " hijo de: ";
-				for(int p = 0; p < size; p++){
-					cout << parent[p].getValue() << ";";
-				}
-				}
-			}else{
-				cout << "es nulo" << endl;
-			}
-			
-		}
-		cout << "\n";
-		for(int k = 0; k < size; k++){
-			if(right[k].getValue()!=0){
-				parent = right[k].getParentList();
-				if(parent!=NULL){
-                         	cout << right[k].getValue() << " hijo de: ";
-                        	for(int p = 0; p < size; p++){
-                                	cout << parent[p].getValue() << ";";
-                        	}
-				}
-			}else{
-				cout << "es nulo" << endl;;
-			}
-                        
-                }
-
-		cout << "\n";		
+		cout << "-----------------------------------------------------" << endl;
+	}
+	cout << "******************************************************" << endl;
+	if(this->hasChildren(lista[0])){
+		listaNueva = new treeNode*[size2];
+		listaNueva = this->getAllChildren(lista, amount);
+		showTree(listaNueva, size2);
 	}
 }
 
+treeNode** btree::getAllChildren(treeNode** padres, int amount){
+	int contador = 0;
+	contador = amount;
+	treeNode** retorno;
+	treeNode** temp;
+	treeNode* nodo;
+	int pos = 0;
+	int num = 0;
+
+	for(int i = 0; i < amount, i++;){
+		contador += this->getElements(padres[i]);
+	}
+
+	retorno = new treeNode*[contador];
+
+	for(int i = 0; i < amount;i++){
+		nodo = padres[i];
+		num = this->getElements(nodo) + 1;
+		temp = new treeNode*[num];
+		temp = this->getChildrenList(nodo);
+
+		for(int i = 0; i < num; i++){
+			retorno[pos] = temp[i];
+			pos++;
+		}
+	}
+	return retorno;
+}
+
 void btree::recorrerPadres(treeNode** general, int amount){
-	cout << "amount " << amount << endl;
 	for(int i = 0; i < amount; i++){
 		if(this->hasChildren(general[i])){
-			cout << "entra if" << endl;
 			treeNode** subGeneral;
 			int amount2 = 0;
 			amount2 = this->getElements(general[i])+1;
@@ -302,10 +336,8 @@ void btree::recorrerPadres(treeNode** general, int amount){
 					}
 				}
 			}
-			cout << "previo a recursion" << endl;
 			recorrerPadres(subGeneral,amount2);
 		}else{
-			cout << "entra otr if" << endl;
 			return;
 		}
 	}
@@ -340,12 +372,17 @@ treeNode** btree::getChildrenList(treeNode* nodo){
 }
 
 void btree::borrar(int value){
-	treeNode** nodo = new treeNode*[1];
-	nodo[0] = root;
-	find(nodo,1,value);
+	if(std::find(allKeys.begin(), allKeys.end(), value)!=allKeys.end()){
+		treeNode** nodo = new treeNode*[1];
+		nodo[0] = root;
+		find(nodo,1,value,value);
+		allKeys.erase(allKeys.begin() + (std::find(allKeys.begin(), allKeys.end(), value) - allKeys.begin()));
+	}else{
+		cout << "este numero no existe" << endl;
+	}
 }
 
-void btree::find(treeNode** general, int amount, int value){
+void btree::find(treeNode** general, int amount, int value, int fakeValue){
 	for(int i = 0; i < amount; i++){
 		treeNode* padre = general[i];
 		if(this->hasChildren(general[i])){
@@ -362,9 +399,13 @@ void btree::find(treeNode** general, int amount, int value){
 					borrarCase2(general,i,amount,value);
 				}else if(this->isCase3(general,i,amount)){
 					borrarCase3(general,i,amount,value);
+				}else if(this->isCase4(padre,value)){
+					borrarCase4(padre,value,fakeValue);
+				}else if(this->isCase5(padre,value)){
+					borrarCase5(padre,value);
 				}			
 			}else{
-				find(subGeneral,amount2,value);
+				find(subGeneral,amount2,value,value);
 			}
 		}else{
 			if(this->contains(padre,value)){
@@ -374,6 +415,10 @@ void btree::find(treeNode** general, int amount, int value){
 					borrarCase2(general,i,amount,value);
 				}else if(this->isCase3(general,i,amount)){
 					borrarCase3(general,i,amount,value);
+				}else if(this->isCase4(padre,value)){
+					borrarCase4(padre,value,fakeValue);
+				}else if(this->isCase5(padre,value)){
+					borrarCase5(padre,value);
 				}
 			}
 		}
@@ -457,6 +502,61 @@ bool btree::isCase3(treeNode** hermanos, int pos, int amount){
 						return true;
 					}
 				}
+			}
+		}
+	}
+	return false;
+}
+
+bool btree::isCase4(treeNode* nodo, int value){
+	if(!this->isLeaf(nodo)){
+		int sizeP = this->getElements(nodo);
+		if(sizeP >= 1){
+			treeNode valor;
+			treeNode* left;
+			treeNode* right;
+			int sizeL = 0;
+			int sizeR = 0;
+
+			for(int i = 0; i < size; i++){
+				if(nodo[i].getValue() == value){
+					valor = nodo[i];
+				}
+			}
+
+			left = valor.getLeftSon();
+			right = valor.getRightSon();
+			sizeL = this->getElements(left);
+			sizeR = this->getElements(right);
+
+			if(sizeL > 1 || sizeR > 1){
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
+bool btree::isCase5(treeNode* nodo, int value){
+	if(!this->isLeaf(nodo)){
+		int keys = this->getElements(nodo);
+
+		if(keys > 1){
+			int position = 0;
+
+			for(int i = 0; i < keys;i++){
+				if(nodo[i].getValue() == value){
+					position = i;
+					i =size;
+				}
+			}
+			treeNode* left = nodo[position].getLeftSon();
+			treeNode* right = nodo[position].getRightSon();
+			int sizeL = this->getElements(left);
+			int sizeR = this->getElements(right);
+
+			if(sizeL == 1 && sizeR == 1){
+				return true;
 			}
 		}
 	}
@@ -602,6 +702,71 @@ void btree::borrarCase3(treeNode** hermanos, int pos, int amount, int value){
 		this->borrarCase1(hermanos[pos],value);
 		insert(elementPadre.getValue(), root);
 	}
+}
+
+void btree::borrarCase4(treeNode* nodo, int valueVerdadero, int valueFalso){
+	int position = 0;
+	int sizeL = 0;
+	int sizeR = 0;
+	treeNode cambio;
+	treeNode* left;
+	treeNode* right;
+
+	for(int i = 0; i < size; i++){
+		if(nodo[i].getValue() == valueFalso){
+			position = i;
+			i = size;
+		}
+	}
+
+	left = nodo[position].getLeftSon();
+	right = nodo[position].getRightSon();
+	sizeL = this->getElements(left);
+	sizeR = this->getElements(right);
+	if(this->isLeaf(left)){
+		if(sizeR > 1){
+			int value2 = 0;
+			value2 = right[0].getValue();
+			right[0].setValue(valueVerdadero);
+			nodo[position].setValue(value2);
+			borrar(valueVerdadero);
+		}else if(sizeL > 1){
+			int value2 = 0;
+			value2 = left[sizeL-1].getValue();
+
+			left[sizeL-1].setValue(valueVerdadero);
+			nodo[position].setValue(value2);
+			borrar(valueVerdadero);
+		}
+	}else{
+		if(sizeR > 1){
+			valueFalso = right[0].getValue();
+			borrarCase4(right,valueVerdadero,valueFalso);
+
+		}else if(sizeL > 1){
+			valueFalso = left[sizeL-1].getValue();
+			borrarCase4(left,valueVerdadero,valueFalso);
+		}
+	}
+
+}
+
+void btree::borrarCase5(treeNode* nodo, int value){
+	int position = 0;
+
+	for(int i = 0; i < size; i++){
+		if(nodo[i].getValue() == value){
+			position = i;
+			i = size;
+		}
+	}
+	cout << "pos: " << position << endl;
+	treeNode* right = nodo[position].getRightSon();
+	treeNode* left = nodo[position].getLeftSon();
+	nodo[position].setValue(left[0].getValue());
+	left[0].setValue(right[0].getValue());
+	right[0].setValue(value);
+	borrar(value);
 }
 
 int btree::findPosition(treeNode* padre, int value, int pos, int amount){
