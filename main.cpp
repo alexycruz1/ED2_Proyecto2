@@ -359,7 +359,8 @@ int main(int argc, char*argv[]){
 	cout << "Ingrese el valor a buscar: " << endl;
 	int ValorABuscar;
 	cin >> ValorABuscar;
-	cout << "El nodo es hijo de: " << Arbolito.BuscarNodo(ValorABuscar, NodosTotales);
+	Node* Padre = Arbolito.BuscarNodo(ValorABuscar, NodosTotales);
+	cout << "El nodo es hijo de: " << (*Padre).getValue() << endl;
 	cout << "-------------------------------------------------------------------------" << endl;
 	return 0;	
 }
