@@ -257,7 +257,6 @@ void AVLTree::EstaBalanceado(Node* Nodo, bool Continuar, bool Agregar, int Lado)
 			}
 		}
 
-		//Casos
 		if (Nodo -> getLevel() == 0){
 			Continuar = false;
 		}else if(Nodo -> getLevel() == -2){
@@ -306,12 +305,9 @@ void AVLTree::RSI(Node* Nodo){
 		Raiz = HijoIzquierdo;
 	}
 
-	//Construir AVL
 	Hijo -> setRightSon(Nieto);
 	HijoIzquierdo -> setLeftSon(Hijo);
 
-
-   //Reasignar padres
 	Hijo -> setParent(HijoIzquierdo);
 	if(Nieto){
 		Nieto -> setParent(Hijo);
@@ -337,12 +333,9 @@ void AVLTree::RSD(Node* Nodo){
 		Raiz = HijoIzquierdo;
 	}
 
-	//Construir AVL
 	Hijo -> setLeftSon(Nieto);
 	HijoIzquierdo -> setRightSon(Hijo);
 
-
-   //Reasignar padres
 	Hijo -> setParent(HijoIzquierdo);
 	if(Nieto){
 		Nieto -> setParent(Hijo);
@@ -370,14 +363,11 @@ void AVLTree::RSDx2(Node* Nodo){
 		Raiz = Nieto;
 	}
 
-	//Reconstruir el AVL
 	HijoIzquierdo -> setRightSon(SubIzquierdo);
 	Hijo -> setLeftSon(SubDerecho);
 	Nieto -> setLeftSon(HijoIzquierdo);
 	Nieto -> setRightSon(Hijo);
 	
-
-	//Reasignar Padres
 	Nieto -> setParent(Padre);
 	Hijo -> setParent(HijoIzquierdo);
 	HijoIzquierdo -> setParent(Nieto);
@@ -420,13 +410,11 @@ void AVLTree::RSIx2(Node* Nodo){
 		Raiz = Nieto;
 	}
 
-	//Reconstruir el AVL
 	HijoIzquierdo -> setLeftSon(SubIzquierdo);
 	Hijo -> setRightSon(SubDerecho);
 	Nieto -> setLeftSon(Hijo);
 	Nieto -> setRightSon(HijoIzquierdo);
 
-	//Reasignar Padres
 	Nieto -> setParent(Padre);
 	Hijo -> setParent(HijoIzquierdo);
 	HijoIzquierdo -> setParent(Nieto);
@@ -479,4 +467,25 @@ Node* AVLTree::Buscar(int ValorNodo, int NodosTotales){
 
 	NodoEncontrado = NodoEncontrado -> getParentPointer();
 	return NodoEncontrado;
+}
+
+string AVLTree::VerArbol(Node* NodoActual, int NodosTotales)const{
+	stringstream ss;
+	if(NodoActual == NULL){
+		return ss.str();
+	}
+
+	if(NodoActual -> getRightSonPointer()){
+		VerArbol(NodoActual -> getRightSonPointer(), NodosTotales+1);
+	}
+
+	for(int i = 0; i < NodosTotales; i++){
+		ss << "   ";
+	}
+
+	ss << (*NodoActual).getValue() << endl;
+
+	if(NodoActual -> getRightSonPointer()){
+		VerArbol(NodoActual -> getLeftSonPointer(), NodosTotales+1);
+	}
 }

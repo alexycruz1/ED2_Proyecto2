@@ -202,7 +202,8 @@ int main(int argc, char*argv[]){
 						getch();
 					}
 				}else if(opcion2 == '4'){//MOSTRAR AVL (PENDIENTE)
-					
+					string ArbolImpreso = Arbolito.VerArbol(Arbolito.getRootPointer(), NodosTotales);
+					mvaddstr(5,width-100, ArbolImpreso.c_str());
 				}
 			}
 		}else if(opcion1 == '2'){//OPCIONES ARBOL-B
