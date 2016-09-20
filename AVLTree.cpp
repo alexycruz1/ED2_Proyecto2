@@ -460,3 +460,23 @@ void AVLTree::Recorrido(Node* Nodo){
 		Recorrido(Nodo -> getRightSonPointer());
 	}
 }
+
+Node* AVLTree::Buscar(int ValorNodo, int NodosTotales){
+	Node* NodoEncontrado = new Node(ValorNodo);
+	int Revisar = 0;
+	while(ValorNodo != (*NodoEncontrado).getValue() && (Revisar <= NodosTotales)){
+		Revisar++;
+		if (ValorNodo > (*NodoEncontrado).getValue()){
+			if ((*NodoEncontrado).hasRightSon()){
+				NodoEncontrado = NodoEncontrado -> getRightSonPointer();
+			}
+		}else if(ValorNodo < (*NodoEncontrado).getValue()){
+			if((*NodoEncontrado).hasLeftSon()){
+				NodoEncontrado = NodoEncontrado -> getLeftSonPointer();	
+			}
+		}
+	}
+
+	NodoEncontrado = NodoEncontrado -> getParentPointer();
+	return NodoEncontrado;
+}

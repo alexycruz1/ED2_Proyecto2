@@ -147,6 +147,7 @@ int main(int argc, char*argv[]){
 					if(ValorAgregarTemp != 0){
 						ValorBorrar = ValorAgregarTemp;
 						Arbolito.DeleteNode(ValorBorrar, NodosTotales, 0);
+						NodosTotales--;
 					}else{
 						opcion2 = '0';
 					}
@@ -162,9 +163,46 @@ int main(int argc, char*argv[]){
 						getch();
 					}
 				}else if(opcion2 == '3'){//buscar AVL (PENDIENTE)
+					clear();
+					string ValorIngresado = "";
+					char ValorIngresadoTemp[15];
+					int ValorBuscar;
 
+					mvprintw(3,width-100,"ARBOL Adelson-Velskii y Landis");
+					mvprintw(7, width-50, "SALIR [0]");
+
+					mvprintw(5,width-100,"Digite un valor para buscar en el Arbol-B: ");
+					getnstr(ValorIngresadoTemp, sizeof(ValorIngresadoTemp) - 1);
+
+					//sacar la string
+					for(int i = 0; i < 16; i++){
+						if(ValorIngresadoTemp[i] != ' '){
+							ValorIngresado += ValorIngresadoTemp[i];
+						}
+					}
+
+					int ValorAgregarTemp = atoi(ValorIngresado.c_str());
+					if(ValorAgregarTemp != 0){
+						ValorBuscar = ValorAgregarTemp;
+						Node* PadreBuscado = Arbolito.Buscar(ValorBuscar, NodosTotales);
+						mvprintw(5,width-100,"El valor del padre del nodo buscado es: ", "%i", (*PadreBuscado).getValue());
+						//mvprintw(5,width-60, "%i", (*PadreBuscado).getValue());
+					}else{
+						opcion2 = '0';
+					}
+
+
+					if(opcion2 != '0'){
+						mvprintw(6,width-100,"VALOR INGRESADO EXITOSAMENTE!");
+						refresh();
+						getch();
+					}else{
+						mvprintw(6,width-100,"Regresaras al menu principal");
+						opcion2 = '0';
+						getch();
+					}
 				}else if(opcion2 == '4'){//MOSTRAR AVL (PENDIENTE)
-
+					
 				}
 			}
 		}else if(opcion1 == '2'){//OPCIONES ARBOL-B

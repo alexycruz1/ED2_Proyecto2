@@ -22,5 +22,6 @@ class AVLTree{
 		void RSIx2(Node* Nodo);
 		void RSDx2(Node* Nodo);
 		void Recorrido(Node* Nodo);
+		Node* Buscar(int ValorNodo, int NodosTotales);
 		/*string toString()const;*/
 };
