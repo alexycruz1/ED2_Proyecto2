@@ -400,11 +400,10 @@ int main(int argc, char*argv[]){
 				/*for(int i = 0; i < 16; i++){
 				lista.push_back(lista2[i]);
 			}*/
-			/*for(int i = 1; i < 11; i++){
+			for(int i = 1; i < 11; i++){
 				//tree.insert(lista[i], tree.getRoot());
 				tree.insert(i, tree.getRoot());
-				cout << i << endl;
-			}*/
+			}
 
 				}else if(opcion3 == '4'){//MOSTRAR ARBOL-B (PENDIENTE)
 					getch();
