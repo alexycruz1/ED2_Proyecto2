@@ -33,6 +33,7 @@ int main(int argc, char*argv[]){
 	int pruebas = 0;
 	string size = "";
 	char SizeTemp[15];
+	vector<int> lista;
 
 	initscr();
 	(void)echo();
@@ -160,9 +161,9 @@ int main(int argc, char*argv[]){
 						opcion2 = '0';
 						getch();
 					}
-				}else if(opcion2 == '3'){//buscar AVL
+				}else if(opcion2 == '3'){//buscar AVL (PENDIENTE)
 
-				}else if(opcion2 == '4'){//MOSTRAR AVL
+				}else if(opcion2 == '4'){//MOSTRAR AVL (PENDIENTE)
 
 				}
 			}
@@ -202,7 +203,7 @@ int main(int argc, char*argv[]){
 					int ValorAgregarTemp = atoi(ValorIngresado.c_str());
 					if(ValorAgregarTemp != 0){
 						ValorAgregar = ValorAgregarTemp;
-						//tree.insert(ValorAgregar, tree.getRoot());
+						tree.insert(ValorAgregar, tree.getRoot());
 					}else{
 						opcion3 = '0';
 					}
@@ -254,12 +255,54 @@ int main(int argc, char*argv[]){
 						opcion3 = '0';
 						getch();
 					}
-				}else if(opcion3 == '3'){//CARGAR ARBOL-B
+				}else if(opcion3 == '3'){//CARGAR ARBOL-B (PENDIENTE)
 
-				}else if(opcion3 == '4'){//MOSTRAR ARBOL-B
+				}else if(opcion3 == '4'){//MOSTRAR ARBOL-B (PENDIENTE)
 
 				}else if(opcion3 == '5'){//CAMBIAR SIZE ARBOL-B
+					clear();
+					string ValorIngresado = "";
+					char ValorIngresadoTemp[15];
+					int size;
 
+					mvprintw(3,width-100,"ARBOL-B");
+					mvprintw(7, width-50, "SALIR [0]");
+
+					mvprintw(5,width-100,"Digite el nuevo size del Arbol-B: ");
+					getnstr(ValorIngresadoTemp, sizeof(ValorIngresadoTemp) - 1);
+
+					//sacar la string
+					for(int i = 0; i < 16; i++){
+						if(ValorIngresadoTemp[i] != ' '){
+							ValorIngresado += ValorIngresadoTemp[i];
+						}
+					}
+
+					int SizeTemp = atoi(ValorIngresado.c_str());
+					if(SizeTemp != 0){
+						size = SizeTemp;
+						btree arbol(size);
+						lista = tree.getKeys();
+
+						for(int i = 0; i < lista.size(); i++){
+							arbol.insert(lista[i], arbol.getRoot());
+						}
+
+						tree = arbol;
+					}else{
+						opcion3 = '0';
+					}
+
+
+					if(opcion3 != '0'){
+						mvprintw(6,width-100,"VALOR INGRESADO EXITOSAMENTE!");
+						refresh();
+						getch();
+					}else{
+						mvprintw(6,width-100,"Regresaras al menu principal");
+						opcion3 = '0';
+						getch();
+					}
 				}
 			}
 		}
@@ -343,7 +386,7 @@ int main(int argc, char*argv[]){
 
 
 	//ESTA FUNCION ES PARA CARGAR EL ARCHIVO	
-	/*void loadNumbers(vector<int>& lista){
+	void loadNumbers(vector<int>& lista){
 	ifstream fentrada;
 	fentrada.open("numeros.txt");
     stringstream ss;
@@ -364,5 +407,5 @@ int main(int argc, char*argv[]){
     	}
     }
     fentrada.close();
-}*/
+}
 

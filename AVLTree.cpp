@@ -96,11 +96,12 @@ void AVLTree::AddNode(int ValorInsertar){
 
 void AVLTree::DeleteNode(int ValorEliminar, int NodosTotales, int CasoEspecial){
 	Node* NodoEliminar = Raiz;
+	cout << "Nodo a eliminar: " << (*NodoEliminar).getValue();
 	int Revisar = 0;
 	int Repetido = 0;
 
 	if (CasoEspecial == 0){
-		while(ValorEliminar != (*NodoEliminar).getValue() && (Revisar < NodosTotales)){
+		while(ValorEliminar != (*NodoEliminar).getValue() && (Revisar <= NodosTotales)){
 			Revisar++;
 			if (ValorEliminar > (*NodoEliminar).getValue()){
 				if ((*NodoEliminar).hasRightSon()){
